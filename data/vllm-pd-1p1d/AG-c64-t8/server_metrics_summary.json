@@ -1,0 +1,754 @@
+{
+ "schema_version": "1.1",
+ "aiperf_version": "0.13.0",
+ "metrics_phase": "profiling",
+ "source_roles": {
+  "8000": "frontend",
+  "8081": "worker0",
+  "8082": "worker1"
+ },
+ "metrics": {
+  "dynamo_component_router_kv_hit_rate": {
+   "type": "histogram",
+   "description": "Predicted KV cache hit rate at routing time (0.0-1.0)",
+   "unit": "ratio",
+   "series": [
+    {
+     "source": "frontend",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_namespace": "dynamo"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "0": 0,
+      "0.05": 0,
+      "0.1": 0,
+      "0.15000000000000002": 0,
+      "0.2": 0,
+      "0.25": 0,
+      "0.30000000000000004": 0,
+      "0.35000000000000003": 0,
+      "0.4": 0,
+      "0.45": 0,
+      "0.5": 0,
+      "0.55": 0,
+      "0.6000000000000001": 0,
+      "0.65": 0,
+      "0.7000000000000001": 0,
+      "0.75": 0,
+      "0.8": 0,
+      "0.8500000000000001": 0,
+      "0.9": 0,
+      "0.9500000000000001": 0,
+      "1": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "dynamo_frontend_time_to_first_token_seconds": {
+   "type": "histogram",
+   "description": "Time to first token in seconds",
+   "unit": "seconds",
+   "series": [
+    {
+     "source": "frontend",
+     "labels": {
+      "model": "qwen235"
+     },
+     "stats": {
+      "count": 512,
+      "sum": 522.9147400560001,
+      "avg": 1.0213178516718753,
+      "count_rate": 7.958491278301237,
+      "sum_rate": 8.128149214903976,
+      "p1_estimate": 0.22263493772542645,
+      "p5_estimate": 0.24103329443617816,
+      "p10_estimate": 0.2640312403246178,
+      "p25_estimate": 0.3330250779899365,
+      "p50_estimate": 0.44040610149027193,
+      "p75_estimate": 1.140311940757143,
+      "p90_estimate": 2.9767056939480683,
+      "p95_estimate": 4.054591526649665,
+      "p99_estimate": 4.794247731470653
+     },
+     "buckets": {
+      "0": 0,
+      "0.0022": 0,
+      "0.0047": 0,
+      "0.01": 0,
+      "0.022": 0,
+      "0.047": 0,
+      "0.1": 0,
+      "0.22": 0,
+      "0.47": 287,
+      "1": 375,
+      "2.2": 444,
+      "4.7": 504,
+      "10": 512,
+      "22": 512,
+      "48": 512,
+      "100": 512,
+      "220": 512,
+      "480": 512,
+      "+Inf": 512
+     }
+    }
+   ]
+  },
+  "vllm:kv_cache_usage_perc": {
+   "type": "gauge",
+   "description": "KV-cache usage. 1 means 100 percent usage.",
+   "unit": "ratio",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 0.5043373219675493,
+      "min": 0.0,
+      "max": 1.0,
+      "std": 0.26478750585649646,
+      "p1": 0.0,
+      "p5": 0.007141301981275833,
+      "p10": 0.1177879381667755,
+      "p25": 0.3052471151752667,
+      "p50": 0.5312431961680819,
+      "p75": 0.7102111909427389,
+      "p90": 0.8398432397126062,
+      "p95": 0.8726322664924885,
+      "p99": 0.9879730023949488
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 0.0457543276674021,
+      "min": 0.0,
+      "max": 0.3736450584484591,
+      "std": 0.0486692089605764,
+      "p1": 0.0,
+      "p5": 0.0,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p50": 0.050584484590860734,
+      "p75": 0.07800212539851226,
+      "p90": 0.09623804463336876,
+      "p95": 0.11825717321997872,
+      "p99": 0.17853347502656747
+     }
+    }
+   ]
+  },
+  "vllm:nixl_bytes_transferred": {
+   "type": "histogram",
+   "description": "Histogram of bytes transferred per NIXL KV Cache transfers.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 2048,
+      "sum": 172971261952.0,
+      "avg": 84458624.0,
+      "count_rate": 30.640008912961957,
+      "sum_rate": 2587812992.1365027,
+      "p1_estimate": 17824649.50052802,
+      "p5_estimate": 21640534.072972465,
+      "p10_estimate": 26410389.78852802,
+      "p25_estimate": 32182800.66852802,
+      "p50_estimate": 33554432.0,
+      "p75_estimate": 61440700.10206065,
+      "p90_estimate": 272162223.4121695,
+      "p95_estimate": 303657891.4026403,
+      "p99_estimate": 328854425.7950169
+     },
+     "buckets": {
+      "2048.0": 0,
+      "8192.0": 0,
+      "32768.0": 0,
+      "131072.0": 0,
+      "524288.0": 0,
+      "2.097152e+06": 0,
+      "8.388608e+06": 0,
+      "3.3554432e+07": 540,
+      "1.34217728e+08": 1628,
+      "5.36870912e+08": 2048,
+      "2.147483648e+09": 2048,
+      "8.589934592e+09": 2048,
+      "+Inf": 2048
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "2048.0": 0,
+      "8192.0": 0,
+      "32768.0": 0,
+      "131072.0": 0,
+      "524288.0": 0,
+      "2.097152e+06": 0,
+      "8.388608e+06": 0,
+      "3.3554432e+07": 0,
+      "1.34217728e+08": 0,
+      "5.36870912e+08": 0,
+      "2.147483648e+09": 0,
+      "8.589934592e+09": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_num_descriptors": {
+   "type": "histogram",
+   "description": "Histogram of number of descriptors per NIXL  KV Cache transfers.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 2048,
+      "sum": 3652840.0,
+      "avg": 1783.61328125,
+      "count_rate": 30.640008912961957,
+      "sum_rate": 54649.92683477732,
+      "p1_estimate": 83.30730090977386,
+      "p5_estimate": 85.09040195507002,
+      "p10_estimate": 87.31927826169024,
+      "p25_estimate": 94.00590718155087,
+      "p50_estimate": 100.0,
+      "p75_estimate": 1016.566005786053,
+      "p90_estimate": 7923.492639401615,
+      "p95_estimate": 9081.030199401614,
+      "p99_estimate": 10000.0
+     },
+     "buckets": {
+      "10.0": 0,
+      "20.0": 0,
+      "30.0": 0,
+      "50.0": 0,
+      "75.0": 0,
+      "100.0": 1148,
+      "200.0": 1276,
+      "400.0": 1384,
+      "1000.0": 1484,
+      "2000.0": 1624,
+      "4000.0": 1636,
+      "10000.0": 2036,
+      "20000.0": 2048,
+      "50000.0": 2048,
+      "+Inf": 2048
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "10.0": 0,
+      "20.0": 0,
+      "30.0": 0,
+      "50.0": 0,
+      "75.0": 0,
+      "100.0": 0,
+      "200.0": 0,
+      "400.0": 0,
+      "1000.0": 0,
+      "2000.0": 0,
+      "4000.0": 0,
+      "10000.0": 0,
+      "20000.0": 0,
+      "50000.0": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_num_failed_notifications": {
+   "type": "counter",
+   "description": "Number of failed NIXL KV Cache notifications. Retained for compatibility; these failures are also included in vllm:nixl_num_failed_transfers.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_num_failed_transfers": {
+   "type": "counter",
+   "description": "Number of failed NIXL KV Cache transfers, including handshake and notification failures. NOTE: KV expiry is tracked separately in vllm:nixl_num_kv_expired_reqs.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_num_kv_expired_reqs": {
+   "type": "counter",
+   "description": "Number of requests that had their KV expire. NOTE: This metric is tracked on the P instance.",
+   "unit": "requests",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_post_time_seconds": {
+   "type": "histogram",
+   "description": "Histogram of transfer post time for NIXL KV Cache transfers.",
+   "unit": "seconds",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 2048,
+      "sum": 14.871115999999995,
+      "avg": 0.007261287109374998,
+      "count_rate": 30.640008912961957,
+      "sum_rate": 0.2224859017508257,
+      "p1_estimate": 0.0004628544319207443,
+      "p5_estimate": 0.0004945494366697427,
+      "p10_estimate": 0.0005341681926059905,
+      "p25_estimate": 0.0006530244604147344,
+      "p50_estimate": 0.0014942176102404135,
+      "p75_estimate": 0.004846134832462655,
+      "p90_estimate": 0.02976316045141375,
+      "p95_estimate": 0.032666232595666735,
+      "p99_estimate": 0.03498869031106913
+     },
+     "buckets": {
+      "0.001": 917,
+      "0.005": 1547,
+      "0.01": 1615,
+      "0.025": 1698,
+      "0.05": 2048,
+      "0.075": 2048,
+      "0.1": 2048,
+      "0.2": 2048,
+      "0.3": 2048,
+      "0.5": 2048,
+      "0.75": 2048,
+      "1.0": 2048,
+      "5.0": 2048,
+      "+Inf": 2048
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "0.001": 0,
+      "0.005": 0,
+      "0.01": 0,
+      "0.025": 0,
+      "0.05": 0,
+      "0.075": 0,
+      "0.1": 0,
+      "0.2": 0,
+      "0.3": 0,
+      "0.5": 0,
+      "0.75": 0,
+      "1.0": 0,
+      "5.0": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "vllm:nixl_xfer_time_seconds": {
+   "type": "histogram",
+   "description": "Histogram of transfer duration for NIXL KV Cache transfers.",
+   "unit": "seconds",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 2048,
+      "sum": 47.85362999999999,
+      "avg": 0.023366030273437494,
+      "count_rate": 30.640008912961957,
+      "sum_rate": 0.7159353758386637,
+      "p1_estimate": 4.8576424481783894e-05,
+      "p5_estimate": 0.0008560714935153146,
+      "p10_estimate": 0.001865440329807228,
+      "p25_estimate": 0.005,
+      "p50_estimate": 0.020720809089126626,
+      "p75_estimate": 0.031725483642081526,
+      "p90_estimate": 0.05008545162632862,
+      "p95_estimate": 0.059844436019297086,
+      "p99_estimate": 0.09385614824936221
+     },
+     "buckets": {
+      "0.005": 507,
+      "0.01": 681,
+      "0.025": 1379,
+      "0.05": 1780,
+      "0.075": 1981,
+      "0.1": 2029,
+      "0.2": 2048,
+      "0.3": 2048,
+      "0.5": 2048,
+      "0.75": 2048,
+      "1.0": 2048,
+      "5.0": 2048,
+      "+Inf": 2048
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "0.005": 0,
+      "0.01": 0,
+      "0.025": 0,
+      "0.05": 0,
+      "0.075": 0,
+      "0.1": 0,
+      "0.2": 0,
+      "0.3": 0,
+      "0.5": 0,
+      "0.75": 0,
+      "1.0": 0,
+      "5.0": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "vllm:num_preemptions": {
+   "type": "counter",
+   "description": "Cumulative number of preemption from the engine.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 1.0,
+      "rate": 0.014960941852032205
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    }
+   ]
+  },
+  "vllm:num_requests_waiting": {
+   "type": "gauge",
+   "description": "Number of requests waiting to be processed.",
+   "unit": "requests",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 0.6243654822335025,
+      "min": 0.0,
+      "max": 12.0,
+      "std": 1.2781584442463945,
+      "p1": 0.0,
+      "p5": 0.0,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 1.0,
+      "p90": 2.0,
+      "p95": 3.0,
+      "p99": 4.0
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 3.6091370558375635,
+      "min": 0.0,
+      "max": 49.0,
+      "std": 7.672141345345289,
+      "p1": 0.0,
+      "p5": 0.0,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 1.0,
+      "p90": 14.0,
+      "p95": 17.0,
+      "p99": 36.5199999999999
+     }
+    }
+   ]
+  },
+  "vllm:prefix_cache_hits": {
+   "type": "counter",
+   "description": "Prefix cache hits, in terms of number of cached tokens.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 1934592.0,
+      "rate": 28943.31841940669
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 2085824.0,
+      "rate": 31211.736002572423
+     }
+    }
+   ]
+  },
+  "vllm:prefix_cache_queries": {
+   "type": "counter",
+   "description": "Prefix cache queries, in terms of number of queried tokens.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 2816102.0,
+      "rate": 42131.5382713916
+     }
+    },
+    {
+     "source": "worker1",
+     "labels": {
+      "dynamo_component": "prefill",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 2816102.0,
+      "rate": 42139.42891649353
+     }
+    }
+   ]
+  }
+ }
+}

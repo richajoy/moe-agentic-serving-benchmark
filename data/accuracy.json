@@ -1,0 +1,27 @@
+{
+ "_about": "GSM8K accuracy for the two TP8 MoE-config runs. Per-question results: data/<run>/gsm8k.json.",
+ "runs": {
+  "vllm-tp8-moe-default": {
+   "layout": "TP8",
+   "engine": "vllm",
+   "kv_dtype": "bf16",
+   "router": "round-robin",
+   "moe_config": "default",
+   "task": "gsm8k",
+   "n": 400,
+   "acc": 0.945,
+   "correct": 378
+  },
+  "vllm-tp8-moe-tuned": {
+   "layout": "TP8",
+   "engine": "vllm",
+   "kv_dtype": "bf16",
+   "router": "round-robin",
+   "moe_config": "tuned",
+   "task": "gsm8k",
+   "n": 400,
+   "acc": 0.9475,
+   "correct": 379
+  }
+ }
+}

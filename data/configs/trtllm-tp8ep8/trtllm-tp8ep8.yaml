@@ -1,0 +1,13 @@
+backend: pytorch
+tensor_parallel_size: 8
+moe_expert_parallel_size: 8
+moe_tensor_parallel_size: 1
+enable_attention_dp: false
+enable_chunked_prefill: true
+max_batch_size: 1024
+max_num_tokens: 8192
+max_seq_len: 40960
+kv_cache_config: {free_gpu_memory_fraction: 0.90, enable_block_reuse: true, tokens_per_block: 64}
+cuda_graph_config: {enable_padding: true, max_batch_size: 512}
+disable_overlap_scheduler: false
+print_iter_log: false

@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc">
+<title id="title">The KV cliff: from 64 to 256 agentic sessions the KV pool fills and prefix hits collapse</title>
+<desc id="desc">A 40-cell KV pool (914,240 tokens, vLLM TP8, BF16 KV). At 64 sessions 15 of 40 cells are used (KV peak 0.37), prefix hit 88.4%, TTFT p90 1,214 ms, ITL p90 26.7 ms, all requests in SLO. At 256 sessions every cell fills, cached history is evicted and recomputed, requests queue (waiting p90 113), the hit falls to 52.0%, TTFT p90 rises to 17.9 s and ITL p90 to 216 ms; 0.05% of requests meet the SLO.</desc>
+<!--
+Data sources (every measured number in this animation is read from these files):
+  data/engine-startup.json vllm-tp8 kv_tokens
+  data/points.json vllm-tp8/AG-c64-t8, vllm-tp8/AG-c256-t8 (count-capped, 2,048 of 2,208 turns)
+  data/points.json vllm-tp8ep8-fp8kv/AG-c256-t8 (FP8 note)
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+
+  .still{display:none}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important} .still{display:inline} .motion{display:none} }
+
+@keyframes k0{0.00%{opacity:0} 35.40%{opacity:0} 36.00%{opacity:1} 100.00%{opacity:1}}.k0{animation:k0 16s linear infinite}
+@keyframes k1{0.00%{opacity:0} 35.76%{opacity:0} 36.36%{opacity:1} 100.00%{opacity:1}}.k1{animation:k1 16s linear infinite}
+@keyframes k2{0.00%{opacity:0} 36.12%{opacity:0} 36.72%{opacity:1} 100.00%{opacity:1}}.k2{animation:k2 16s linear infinite}
+@keyframes k3{0.00%{opacity:0} 36.48%{opacity:0} 37.08%{opacity:1} 100.00%{opacity:1}}.k3{animation:k3 16s linear infinite}
+@keyframes k4{0.00%{opacity:0} 36.84%{opacity:0} 37.44%{opacity:1} 100.00%{opacity:1}}.k4{animation:k4 16s linear infinite}
+@keyframes k5{0.00%{opacity:0} 37.20%{opacity:0} 37.80%{opacity:1} 100.00%{opacity:1}}.k5{animation:k5 16s linear infinite}
+@keyframes k6{0.00%{opacity:0} 37.56%{opacity:0} 38.16%{opacity:1} 100.00%{opacity:1}}.k6{animation:k6 16s linear infinite}
+@keyframes k7{0.00%{opacity:0} 37.92%{opacity:0} 38.52%{opacity:1} 100.00%{opacity:1}}.k7{animation:k7 16s linear infinite}
+@keyframes k8{0.00%{opacity:0} 38.28%{opacity:0} 38.88%{opacity:1} 100.00%{opacity:1}}.k8{animation:k8 16s linear infinite}
+@keyframes k9{0.00%{opacity:0} 38.64%{opacity:0} 39.24%{opacity:1} 100.00%{opacity:1}}.k9{animation:k9 16s linear infinite}
+@keyframes k10{0.00%{opacity:0} 39.00%{opacity:0} 39.60%{opacity:1} 100.00%{opacity:1}}.k10{animation:k10 16s linear infinite}
+@keyframes k11{0.00%{opacity:0} 39.36%{opacity:0} 39.96%{opacity:1} 100.00%{opacity:1}}.k11{animation:k11 16s linear infinite}
+@keyframes k12{0.00%{opacity:0} 39.72%{opacity:0} 40.32%{opacity:1} 100.00%{opacity:1}}.k12{animation:k12 16s linear infinite}
+@keyframes k13{0.00%{opacity:0} 40.08%{opacity:0} 40.68%{opacity:1} 100.00%{opacity:1}}.k13{animation:k13 16s linear infinite}
+@keyframes k14{0.00%{opacity:0} 40.44%{opacity:0} 41.04%{opacity:1} 100.00%{opacity:1}}.k14{animation:k14 16s linear infinite}
+@keyframes k15{0.00%{opacity:0} 40.80%{opacity:0} 41.40%{opacity:1} 100.00%{opacity:1}}.k15{animation:k15 16s linear infinite}
+@keyframes k16{0.00%{opacity:0} 41.16%{opacity:0} 41.76%{opacity:1} 100.00%{opacity:1}}.k16{animation:k16 16s linear infinite}
+@keyframes k17{0.00%{opacity:0} 41.52%{opacity:0} 42.12%{opacity:1} 100.00%{opacity:1}}.k17{animation:k17 16s linear infinite}
+@keyframes k18{0.00%{opacity:0} 41.88%{opacity:0} 42.48%{opacity:1} 100.00%{opacity:1}}.k18{animation:k18 16s linear infinite}
+@keyframes k19{0.00%{opacity:0} 42.24%{opacity:0} 42.84%{opacity:1} 100.00%{opacity:1}}.k19{animation:k19 16s linear infinite}
+@keyframes k20{0.00%{opacity:0} 42.60%{opacity:0} 43.20%{opacity:1} 100.00%{opacity:1}}.k20{animation:k20 16s linear infinite}
+@keyframes k21{0.00%{opacity:0} 42.96%{opacity:0} 43.56%{opacity:1} 100.00%{opacity:1}}.k21{animation:k21 16s linear infinite}
+@keyframes k22{0.00%{opacity:0} 43.32%{opacity:0} 43.92%{opacity:1} 100.00%{opacity:1}}.k22{animation:k22 16s linear infinite}
+@keyframes k23{0.00%{opacity:0} 43.68%{opacity:0} 44.28%{opacity:1} 100.00%{opacity:1}}.k23{animation:k23 16s linear infinite}
+@keyframes k24{0.00%{opacity:0} 44.04%{opacity:0} 44.64%{opacity:1} 100.00%{opacity:1}}.k24{animation:k24 16s linear infinite}
+@keyframes k25{0.00%{opacity:0} 49.40%{opacity:0} 50.00%{opacity:1} 58.00%{opacity:1} 58.60%{opacity:0} 100.00%{opacity:0}}.k25{animation:k25 16s linear infinite}
+@keyframes k26{0.00%{opacity:0} 57.40%{opacity:0} 58.00%{opacity:1} 100.00%{opacity:1}}.k26{animation:k26 16s linear infinite}
+@keyframes k27{0.00%{opacity:0} 49.90%{opacity:0} 50.50%{opacity:1} 58.50%{opacity:1} 59.10%{opacity:0} 100.00%{opacity:0}}.k27{animation:k27 16s linear infinite}
+@keyframes k28{0.00%{opacity:0} 57.90%{opacity:0} 58.50%{opacity:1} 100.00%{opacity:1}}.k28{animation:k28 16s linear infinite}
+@keyframes k29{0.00%{opacity:0} 50.40%{opacity:0} 51.00%{opacity:1} 59.00%{opacity:1} 59.60%{opacity:0} 100.00%{opacity:0}}.k29{animation:k29 16s linear infinite}
+@keyframes k30{0.00%{opacity:0} 58.40%{opacity:0} 59.00%{opacity:1} 100.00%{opacity:1}}.k30{animation:k30 16s linear infinite}
+@keyframes k31{0.00%{opacity:0} 50.90%{opacity:0} 51.50%{opacity:1} 59.50%{opacity:1} 60.10%{opacity:0} 100.00%{opacity:0}}.k31{animation:k31 16s linear infinite}
+@keyframes k32{0.00%{opacity:0} 58.90%{opacity:0} 59.50%{opacity:1} 100.00%{opacity:1}}.k32{animation:k32 16s linear infinite}
+@keyframes k33{0.00%{opacity:0} 51.40%{opacity:0} 52.00%{opacity:1} 60.00%{opacity:1} 60.60%{opacity:0} 100.00%{opacity:0}}.k33{animation:k33 16s linear infinite}
+@keyframes k34{0.00%{opacity:0} 59.40%{opacity:0} 60.00%{opacity:1} 100.00%{opacity:1}}.k34{animation:k34 16s linear infinite}
+@keyframes k35{0.00%{opacity:0} 51.90%{opacity:0} 52.50%{opacity:1} 60.50%{opacity:1} 61.10%{opacity:0} 100.00%{opacity:0}}.k35{animation:k35 16s linear infinite}
+@keyframes k36{0.00%{opacity:0} 59.90%{opacity:0} 60.50%{opacity:1} 100.00%{opacity:1}}.k36{animation:k36 16s linear infinite}
+@keyframes k37{0.00%{opacity:0} 52.40%{opacity:0} 53.00%{opacity:1} 61.00%{opacity:1} 61.60%{opacity:0} 100.00%{opacity:0}}.k37{animation:k37 16s linear infinite}
+@keyframes k38{0.00%{opacity:0} 60.40%{opacity:0} 61.00%{opacity:1} 100.00%{opacity:1}}.k38{animation:k38 16s linear infinite}
+@keyframes k39{0.00%{opacity:0} 52.90%{opacity:0} 53.50%{opacity:1} 61.50%{opacity:1} 62.10%{opacity:0} 100.00%{opacity:0}}.k39{animation:k39 16s linear infinite}
+@keyframes k40{0.00%{opacity:0} 60.90%{opacity:0} 61.50%{opacity:1} 100.00%{opacity:1}}.k40{animation:k40 16s linear infinite}
+@keyframes k41{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k41{animation:k41 16s linear infinite}
+@keyframes k42{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k42{animation:k42 16s linear infinite}
+@keyframes k43{0.00%{opacity:0} 46.00%{opacity:0} 46.60%{opacity:1} 100.00%{opacity:1}}.k43{animation:k43 16s linear infinite}
+@keyframes k44{0.00%{opacity:0} 48.60%{opacity:0} 49.20%{opacity:1} 100.00%{opacity:1}}.k44{animation:k44 16s linear infinite}
+@keyframes k45{0.00%{opacity:0} 51.20%{opacity:0} 51.80%{opacity:1} 100.00%{opacity:1}}.k45{animation:k45 16s linear infinite}
+@keyframes k46{0.00%{opacity:0} 53.80%{opacity:0} 54.40%{opacity:1} 100.00%{opacity:1}}.k46{animation:k46 16s linear infinite}
+@keyframes k47{0.00%{opacity:0} 56.40%{opacity:0} 57.00%{opacity:1} 100.00%{opacity:1}}.k47{animation:k47 16s linear infinite}
+@keyframes k48{0.00%{opacity:0} 59.00%{opacity:0} 59.60%{opacity:1} 100.00%{opacity:1}}.k48{animation:k48 16s linear infinite}
+@keyframes k49{0.00%{opacity:0} 61.60%{opacity:0} 62.20%{opacity:1} 100.00%{opacity:1}}.k49{animation:k49 16s linear infinite}
+@keyframes k50{0.00%{opacity:0} 64.20%{opacity:0} 64.80%{opacity:1} 100.00%{opacity:1}}.k50{animation:k50 16s linear infinite}
+@keyframes k51{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k51{animation:k51 16s linear infinite}
+@keyframes k52{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k52{animation:k52 16s linear infinite}
+@keyframes k53{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k53{animation:k53 16s linear infinite}
+@keyframes k54{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k54{animation:k54 16s linear infinite}
+@keyframes k55{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k55{animation:k55 16s linear infinite}
+@keyframes k56{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k56{animation:k56 16s linear infinite}
+@keyframes k57{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k57{animation:k57 16s linear infinite}
+@keyframes k58{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k58{animation:k58 16s linear infinite}
+@keyframes k59{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k59{animation:k59 16s linear infinite}
+@keyframes k60{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k60{animation:k60 16s linear infinite}
+@keyframes k61{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k61{animation:k61 16s linear infinite}
+@keyframes k62{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k62{animation:k62 16s linear infinite}
+@keyframes k63{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k63{animation:k63 16s linear infinite}
+@keyframes k64{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k64{animation:k64 16s linear infinite}
+@keyframes k65{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k65{animation:k65 16s linear infinite}
+@keyframes k66{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 100.00%{opacity:1}}.k66{animation:k66 16s linear infinite}
+@keyframes k67{0.00%{opacity:1} 34.00%{opacity:1} 34.60%{opacity:0} 100.00%{opacity:0}}.k67{animation:k67 16s linear infinite}
+@keyframes k68{0.00%{opacity:0} 33.40%{opacity:0} 34.00%{opacity:1} 70.00%{opacity:1} 70.60%{opacity:0} 100.00%{opacity:0}}.k68{animation:k68 16s linear infinite}
+@keyframes k69{0.00%{opacity:0} 69.40%{opacity:0} 70.00%{opacity:1} 100.00%{opacity:1}}.k69{animation:k69 16s linear infinite}
+@keyframes k70{0.00%{opacity:0} 69.40%{opacity:0} 70.00%{opacity:1} 100.00%{opacity:1}}.k70{animation:k70 16s linear infinite}
+@keyframes k71{0.00%{opacity:0} 69.40%{opacity:0} 70.00%{opacity:1} 100.00%{opacity:1}}.k71{animation:k71 16s linear infinite}
+</style>
+<rect class="bg" x="0" y="0" width="960" height="540"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >The KV cliff: sessions outgrow the KV pool, hits collapse, work is redone</text>
+<text x="24.0" y="54.0" class="mut" text-anchor="start" >vLLM TP8, BF16 KV cache, agentic sessions (2,000-token shared prompt, +600 in / 200 out per turn)</text>
+<text x="40.0" y="106.0" class="ink h" text-anchor="start" >KV pool: 914,240 tokens (1 cell = 22.9k tokens)</text>
+<rect x="40.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="89.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="138.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="187.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="236.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="285.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="334.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="383.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="432.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="481.0" y="120.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="40.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="89.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="138.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="187.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="236.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="285.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="334.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="383.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="432.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="481.0" y="159.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="40.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="89.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="138.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="187.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="236.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="285.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="334.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="383.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="432.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="481.0" y="198.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="40.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="89.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="138.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="187.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="236.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="285.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="334.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="383.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="432.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="481.0" y="237.0" width="44.0" height="34.0" rx="2" class="emp" />
+<rect x="40.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="89.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="138.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="187.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="236.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="285.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="334.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="383.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="432.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="481.0" y="120.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="40.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="89.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="138.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="187.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" />
+<rect x="236.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" />
+<g class="k0" opacity="1"><rect x="285.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k1" opacity="1"><rect x="334.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k2" opacity="1"><rect x="383.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k3" opacity="1"><rect x="432.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k4" opacity="1"><rect x="481.0" y="159.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k5" opacity="1"><rect x="40.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k6" opacity="1"><rect x="89.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k7" opacity="1"><rect x="138.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k8" opacity="1"><rect x="187.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k9" opacity="1"><rect x="236.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k10" opacity="1"><rect x="285.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k11" opacity="1"><rect x="334.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k12" opacity="1"><rect x="383.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k13" opacity="1"><rect x="432.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k14" opacity="1"><rect x="481.0" y="198.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k15" opacity="1"><rect x="40.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k16" opacity="1"><rect x="89.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k17" opacity="1"><rect x="138.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k18" opacity="1"><rect x="187.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k19" opacity="1"><rect x="236.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k20" opacity="1"><rect x="285.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k21" opacity="1"><rect x="334.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k22" opacity="1"><rect x="383.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k23" opacity="1"><rect x="432.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k24" opacity="1"><rect x="481.0" y="237.0" width="44.0" height="34.0" rx="2" class="c1" /></g>
+<g class="k25" opacity="0"><rect x="187.0" y="120.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="209.0" y="142.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k26" opacity="1"><rect x="190.0" y="123.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="209.0" y="142.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k27" opacity="0"><rect x="383.0" y="120.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="405.0" y="142.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k28" opacity="1"><rect x="386.0" y="123.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="405.0" y="142.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k29" opacity="0"><rect x="138.0" y="159.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="160.0" y="181.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k30" opacity="1"><rect x="141.0" y="162.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="160.0" y="181.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k31" opacity="0"><rect x="432.0" y="159.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="454.0" y="181.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k32" opacity="1"><rect x="435.0" y="162.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="454.0" y="181.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k33" opacity="0"><rect x="138.0" y="198.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="160.0" y="220.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k34" opacity="1"><rect x="141.0" y="201.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="160.0" y="220.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k35" opacity="0"><rect x="383.0" y="198.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="405.0" y="220.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k36" opacity="1"><rect x="386.0" y="201.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="405.0" y="220.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k37" opacity="0"><rect x="89.0" y="237.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="111.0" y="259.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k38" opacity="1"><rect x="92.0" y="240.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="111.0" y="259.0" class="w s" text-anchor="middle" >redo</text></g>
+<g class="k39" opacity="0"><rect x="334.0" y="237.0" width="44.0" height="34.0" rx="2" class="cr" /><text x="356.0" y="259.0" class="w s" text-anchor="middle" >evict</text></g>
+<g class="k40" opacity="1"><rect x="337.0" y="240.0" width="38.0" height="28.0" rx="2" class="c3" /><text x="356.0" y="259.0" class="w s" text-anchor="middle" >redo</text></g>
+<rect x="40.0" y="282.0" width="485.0" height="10.0" rx="2" class="emp" />
+<g class="k41" opacity="0"><rect x="40.0" y="282.0" width="179.3" height="10.0" rx="2" class="c1" /><text x="40.0" y="312.0" class="ink" text-anchor="start" >KV in use 37% (64 sessions)</text></g>
+<g class="k42" opacity="1"><rect x="40.0" y="282.0" width="485.0" height="10.0" rx="2" class="c1" /><text x="40.0" y="312.0" class="ink" text-anchor="start" >KV in use 100% (256 sessions): new turns evict cached history</text></g>
+<rect x="40.0" y="323.0" width="14.0" height="14.0" rx="2" class="c1" />
+<text x="60.0" y="334.0" class="mut s" text-anchor="start" >cached session KV</text>
+<rect x="190.0" y="323.0" width="14.0" height="14.0" rx="2" class="cr" />
+<text x="210.0" y="334.0" class="mut s" text-anchor="start" >evicted</text>
+<rect x="290.0" y="323.0" width="14.0" height="14.0" rx="2" class="c3" />
+<text x="310.0" y="334.0" class="mut s" text-anchor="start" >recomputed as prefill</text>
+<text x="539.0" y="106.0" class="ink h" text-anchor="start" >waiting</text>
+<line x1="545.0" y1="120.0" x2="545.0" y2="270.0" class="axis" stroke-width="1" />
+<line x1="595.0" y1="120.0" x2="595.0" y2="270.0" class="axis" stroke-width="1" />
+<circle cx="570.0" cy="258.0" r="6" class="c2" />
+<g class="k43" opacity="1"><circle cx="570.0" cy="242.0" r="6" class="c2" /></g>
+<g class="k44" opacity="1"><circle cx="570.0" cy="226.0" r="6" class="c2" /></g>
+<g class="k45" opacity="1"><circle cx="570.0" cy="210.0" r="6" class="c2" /></g>
+<g class="k46" opacity="1"><circle cx="570.0" cy="194.0" r="6" class="c2" /></g>
+<g class="k47" opacity="1"><circle cx="570.0" cy="178.0" r="6" class="c2" /></g>
+<g class="k48" opacity="1"><circle cx="570.0" cy="162.0" r="6" class="c2" /></g>
+<g class="k49" opacity="1"><circle cx="570.0" cy="146.0" r="6" class="c2" /></g>
+<g class="k50" opacity="1"><circle cx="570.0" cy="130.0" r="6" class="c2" /></g>
+<text x="539.0" y="290.0" class="mut s" text-anchor="start" >waiting p90</text>
+<g class="k51" opacity="0"><text x="539.0" y="308.0" class="ink h" text-anchor="start" >4 requests</text></g>
+<g class="k52" opacity="1"><text x="539.0" y="308.0" class="cr h" text-anchor="start" >113 requests</text></g>
+<rect x="640.0" y="84.0" width="296.0" height="292.0" rx="6" class="pan" />
+<text x="654.0" y="116.0" class="mut" text-anchor="start" >concurrent sessions</text>
+<g class="k53" opacity="0"><text x="922.0" y="116.0" class="ink h" text-anchor="end" >64</text></g>
+<g class="k54" opacity="1"><text x="922.0" y="116.0" class="ink h" text-anchor="end" >256</text></g>
+<text x="654.0" y="154.0" class="mut" text-anchor="start" >KV peak use</text>
+<g class="k55" opacity="0"><text x="922.0" y="154.0" class="ink h" text-anchor="end" >0.37</text></g>
+<g class="k56" opacity="1"><text x="922.0" y="154.0" class="ink h" text-anchor="end" >1.00</text></g>
+<text x="654.0" y="192.0" class="mut" text-anchor="start" >prefix hit (ideal 88.9%)</text>
+<g class="k57" opacity="0"><text x="922.0" y="192.0" class="ink h" text-anchor="end" >88.4%</text></g>
+<g class="k58" opacity="1"><text x="922.0" y="192.0" class="cr h" text-anchor="end" >52.0%</text></g>
+<text x="654.0" y="230.0" class="mut" text-anchor="start" >preemptions</text>
+<g class="k59" opacity="0"><text x="922.0" y="230.0" class="ink h" text-anchor="end" >0</text></g>
+<g class="k60" opacity="1"><text x="922.0" y="230.0" class="cr h" text-anchor="end" >22</text></g>
+<text x="654.0" y="268.0" class="mut" text-anchor="start" >TTFT p90</text>
+<g class="k61" opacity="0"><text x="922.0" y="268.0" class="ink h" text-anchor="end" >1,214 ms</text></g>
+<g class="k62" opacity="1"><text x="922.0" y="268.0" class="cr h" text-anchor="end" >17.9 s</text></g>
+<text x="654.0" y="306.0" class="mut" text-anchor="start" >ITL p90</text>
+<g class="k63" opacity="0"><text x="922.0" y="306.0" class="ink h" text-anchor="end" >26.7 ms</text></g>
+<g class="k64" opacity="1"><text x="922.0" y="306.0" class="cr h" text-anchor="end" >216 ms</text></g>
+<text x="654.0" y="344.0" class="mut" text-anchor="start" >requests in SLO</text>
+<g class="k65" opacity="0"><text x="922.0" y="344.0" class="ink h" text-anchor="end" >100%</text></g>
+<g class="k66" opacity="1"><text x="922.0" y="344.0" class="cr h" text-anchor="end" >0.05%</text></g>
+<text x="654.0" y="366.0" class="faint xs" text-anchor="start" >measured, whole request, client side</text>
+<g class="k67" opacity="0"><text x="40.0" y="412.0" class="ink h" text-anchor="start" >1. 64 sessions fit (KV peak 0.37). Each turn reuses its cached history: hit 88.4%.</text></g>
+<g class="k68" opacity="0"><text x="40.0" y="412.0" class="ink h" text-anchor="start" >2. 256 sessions need about 1.6M to 2.2M tokens of KV against a 0.91M pool: history is evicted and redone.</text></g>
+<g class="k69" opacity="1"><text x="40.0" y="412.0" class="ink h" text-anchor="start" >3. Result: hit 88% → 52%, TTFT p90 1,214 ms → 17.9 s, ITL p90 27 → 216 ms.</text></g>
+<g class="k70" opacity="1"><text x="40.0" y="434.0" class="ink" text-anchor="start" >What moved it: an FP8 KV cache doubles the pool (TP8+EP8, 256 sessions: hit 89.0%, KV peak 0.70, 0 preemptions),</text></g>
+<g class="k71" opacity="1"><text x="40.0" y="452.0" class="ink" text-anchor="start" >but TTFT p90 is still 4.10 s and ITL p90 56.4 ms there: only 18% of requests meet the SLO.</text></g>
+<text x="24.0" y="509.0" class="faint xs" text-anchor="start" >Cells and queue are schematic; panel values are measured. 256-session run is count-capped (2,048 of 2,208 turns). Single runs.</text>
+<text x="24.0" y="526.0" class="faint xs" text-anchor="start" >Qwen3-235B-A22B-Instruct-2507 FP8 | 8x H100 SXM5 | Dynamo 1.6.0 + vLLM 0.31.0 | SLO: TTFT ≤ 2 s and ITL ≤ 50 ms per request</text>
+</svg>

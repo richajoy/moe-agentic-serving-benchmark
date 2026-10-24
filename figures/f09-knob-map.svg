@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 556" width="960" height="556" role="img" aria-labelledby="title desc">
+<title id="title">Knob map: measured effect of each single change on TTFT p90, ITL p90, output throughput and goodput</title>
+<desc id="desc">A table of colored cells. Each row is one change from a baseline point to a variant point; each cell shows baseline and variant and the percent change, blue when the change helps and red when it hurts, with latency signs flipped so lower latency counts as better. FP8 KV is the only change that helps all four columns by a large margin; P/D trades TTFT and throughput for ITL; going from 64 to 256 sessions on BF16 KV hurts everything.</desc>
+<!--
+Data sources (every number in this figure is read from these files):
+  data/points.json rows: vllm-tp8ep8/AG-c256-t8 -> vllm-tp8ep8-fp8kv/AG-c256-t8; vllm-tp8/AG-c64-t8 -> vllm-tp8ep8/AG-c64-t8; vllm-tp8/AG-c64-t8 -> vllm-dp8ep8/AG-c64-t8; vllm-dp8ep8/AG-c64-t8 -> vllm-dp8ep8-kvrouter/AG-c64-t8; vllm-tp8-moe-default/S2-c16 -> vllm-tp8-moe-tuned/S2-c16; vllm-tp8-moe-default/AG-c64-t8 -> vllm-tp8-moe-tuned/AG-c64-t8; vllm-tp8ep8/AG-c64-t8 -> trtllm-tp8ep8/AG-c64-t8; vllm-tp8ep8/AG-c64-t8 -> vllm-pd-1p1d/AG-c64-t8; vllm-tp8ep8-fp8kv/AG-c256-t8 -> vllm-pd-1p1d-fp8kv/AG-c256-t8; vllm-tp8/AG-c64-t8 -> vllm-tp8-matrix/AG-c64-t20; vllm-tp8/AG-c64-t8 -> vllm-tp8/AG-c256-t8
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="556"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >Knob map: which change moves which metric (p90 latency)</text>
+<text x="24.0" y="52.0" class="mut" text-anchor="start" >Each cell: baseline → variant, then the change. Blue helps, red hurts (lower latency counts as better). Color saturates at ±100%.</text>
+<text x="447.0" y="94.0" class="ink h" text-anchor="middle" >TTFT p90</text>
+<text x="587.0" y="94.0" class="ink h" text-anchor="middle" >ITL p90</text>
+<text x="727.0" y="94.0" class="ink h" text-anchor="middle" >output tok/s/GPU</text>
+<text x="867.0" y="94.0" class="ink h" text-anchor="middle" >goodput/GPU</text>
+<text x="24.0" y="94.0" class="ink h" text-anchor="start" >change (concurrency)</text>
+<text x="24.0" y="123.0" class="ink s" text-anchor="start" >BF16 → FP8 KV cache (TP8+EP8, 256 sessions)</text>
+<text x="24.0" y="137.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="110.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.45"/>
+<text x="447.0" y="122.0" class="ink xs" text-anchor="middle" >14.0 s → 4.10 s</text>
+<text x="447.0" y="137.0" class="ink s b" text-anchor="middle" >-71%</text>
+<rect x="520.0" y="110.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.42"/>
+<text x="587.0" y="122.0" class="ink xs" text-anchor="middle" >165 ms → 56.4 ms</text>
+<text x="587.0" y="137.0" class="ink s b" text-anchor="middle" >-66%</text>
+<rect x="660.0" y="110.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.60"/>
+<text x="727.0" y="122.0" class="ink xs" text-anchor="middle" >203 → 402</text>
+<text x="727.0" y="137.0" class="ink s b" text-anchor="middle" >+98%</text>
+<rect x="800.0" y="110.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.61"/>
+<text x="867.0" y="122.0" class="ink xs" text-anchor="middle" >0.14 → 0.37</text>
+<text x="867.0" y="137.0" class="ink s b" text-anchor="middle" >2.6x</text>
+<text x="24.0" y="159.0" class="ink s" text-anchor="start" >TP8 → TP8+EP8 (64 sessions)</text>
+<text x="24.0" y="173.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="146.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.22"/>
+<text x="447.0" y="158.0" class="ink xs" text-anchor="middle" >1,214 ms → 851 ms</text>
+<text x="447.0" y="173.0" class="ink s b" text-anchor="middle" >-30%</text>
+<rect x="520.0" y="146.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.08"/>
+<text x="587.0" y="158.0" class="ink xs" text-anchor="middle" >26.7 ms → 25.6 ms</text>
+<text x="587.0" y="173.0" class="ink s b" text-anchor="middle" >-4%</text>
+<rect x="660.0" y="146.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.09"/>
+<text x="727.0" y="158.0" class="ink xs" text-anchor="middle" >232 → 244</text>
+<text x="727.0" y="173.0" class="ink s b" text-anchor="middle" >+5%</text>
+<rect x="800.0" y="146.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.09"/>
+<text x="867.0" y="158.0" class="ink xs" text-anchor="middle" >1.16 → 1.22</text>
+<text x="867.0" y="173.0" class="ink s b" text-anchor="middle" >+5%</text>
+<text x="24.0" y="195.0" class="ink s" text-anchor="start" >TP8 → DP8+EP8, vLLM balancer (64)</text>
+<text x="24.0" y="209.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="182.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="447.0" y="194.0" class="ink xs" text-anchor="middle" >1,214 ms → 4.53 s</text>
+<text x="447.0" y="209.0" class="ink s b" text-anchor="middle" >3.7x</text>
+<rect x="520.0" y="182.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.36"/>
+<text x="587.0" y="194.0" class="ink xs" text-anchor="middle" >26.7 ms → 41.4 ms</text>
+<text x="587.0" y="209.0" class="ink s b" text-anchor="middle" >+55%</text>
+<rect x="660.0" y="182.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.25"/>
+<text x="727.0" y="194.0" class="ink xs" text-anchor="middle" >232 → 151</text>
+<text x="727.0" y="209.0" class="ink s b" text-anchor="middle" >-35%</text>
+<rect x="800.0" y="182.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.46"/>
+<text x="867.0" y="194.0" class="ink xs" text-anchor="middle" >1.16 → 0.32</text>
+<text x="867.0" y="209.0" class="ink s b" text-anchor="middle" >-73%</text>
+<text x="24.0" y="231.0" class="ink s" text-anchor="start" >DP8 balancer → Dynamo KV router (64)</text>
+<text x="24.0" y="245.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="218.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.28"/>
+<text x="447.0" y="230.0" class="ink xs" text-anchor="middle" >4.53 s → 2.69 s</text>
+<text x="447.0" y="245.0" class="ink s b" text-anchor="middle" >-41%</text>
+<rect x="520.0" y="218.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.12"/>
+<text x="587.0" y="230.0" class="ink xs" text-anchor="middle" >41.4 ms → 36.6 ms</text>
+<text x="587.0" y="245.0" class="ink s b" text-anchor="middle" >-12%</text>
+<rect x="660.0" y="218.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.14"/>
+<text x="727.0" y="230.0" class="ink xs" text-anchor="middle" >151 → 172</text>
+<text x="727.0" y="245.0" class="ink s b" text-anchor="middle" >+14%</text>
+<rect x="800.0" y="218.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.46"/>
+<text x="867.0" y="230.0" class="ink xs" text-anchor="middle" >0.32 → 0.55</text>
+<text x="867.0" y="245.0" class="ink s b" text-anchor="middle" >+72%</text>
+<text x="24.0" y="267.0" class="ink s" text-anchor="start" >Default → tuned MoE config, TP8 (S2-c16)</text>
+<text x="24.0" y="281.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="254.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.14"/>
+<text x="447.0" y="266.0" class="ink xs" text-anchor="middle" >4.78 s → 4.09 s</text>
+<text x="447.0" y="281.0" class="ink s b" text-anchor="middle" >-14%</text>
+<rect x="520.0" y="254.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.11"/>
+<text x="587.0" y="266.0" class="ink xs" text-anchor="middle" >54.5 ms → 49.1 ms</text>
+<text x="587.0" y="281.0" class="ink s b" text-anchor="middle" >-10%</text>
+<rect x="660.0" y="254.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.12"/>
+<text x="727.0" y="266.0" class="ink xs" text-anchor="middle" >32 → 36</text>
+<text x="727.0" y="281.0" class="ink s b" text-anchor="middle" >+12%</text>
+<rect x="800.0" y="254.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.61"/>
+<text x="867.0" y="266.0" class="ink xs" text-anchor="middle" >0.0050 → 0.093</text>
+<text x="867.0" y="281.0" class="ink s b" text-anchor="middle" >18.7x</text>
+<text x="24.0" y="303.0" class="ink s" text-anchor="start" >Default → tuned MoE config, TP8 (64 sessions)</text>
+<text x="24.0" y="317.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="290.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.42"/>
+<text x="447.0" y="302.0" class="ink xs" text-anchor="middle" >1,230 ms → 2.03 s</text>
+<text x="447.0" y="317.0" class="ink s b" text-anchor="middle" >+65%</text>
+<rect x="520.0" y="290.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.07"/>
+<text x="587.0" y="302.0" class="ink xs" text-anchor="middle" >26.8 ms → 26.3 ms</text>
+<text x="587.0" y="317.0" class="ink s b" text-anchor="middle" >-2%</text>
+<rect x="660.0" y="290.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.08"/>
+<text x="727.0" y="302.0" class="ink xs" text-anchor="middle" >231 → 223</text>
+<text x="727.0" y="317.0" class="ink s b" text-anchor="middle" >-4%</text>
+<rect x="800.0" y="290.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.15"/>
+<text x="867.0" y="302.0" class="ink xs" text-anchor="middle" >1.16 → 0.98</text>
+<text x="867.0" y="317.0" class="ink s b" text-anchor="middle" >-16%</text>
+<text x="24.0" y="339.0" class="ink s" text-anchor="start" >vLLM → TensorRT-LLM, TP8+EP8 (64)</text>
+<text x="24.0" y="353.0" class="faint xs" text-anchor="start" >KV pool -5%</text>
+<rect x="380.0" y="326.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.14"/>
+<text x="447.0" y="338.0" class="ink xs" text-anchor="middle" >851 ms → 733 ms</text>
+<text x="447.0" y="353.0" class="ink s b" text-anchor="middle" >-14%</text>
+<rect x="520.0" y="326.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.10"/>
+<text x="587.0" y="338.0" class="ink xs" text-anchor="middle" >25.6 ms → 27.7 ms</text>
+<text x="587.0" y="353.0" class="ink s b" text-anchor="middle" >+8%</text>
+<rect x="660.0" y="326.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.10"/>
+<text x="727.0" y="338.0" class="ink xs" text-anchor="middle" >244 → 225</text>
+<text x="727.0" y="353.0" class="ink s b" text-anchor="middle" >-8%</text>
+<rect x="800.0" y="326.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.10"/>
+<text x="867.0" y="338.0" class="ink xs" text-anchor="middle" >1.22 → 1.12</text>
+<text x="867.0" y="353.0" class="ink s b" text-anchor="middle" >-8%</text>
+<text x="24.0" y="375.0" class="ink s" text-anchor="start" >Aggregated → P/D 1P:1D, BF16 KV (64)</text>
+<text x="24.0" y="389.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="362.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="447.0" y="374.0" class="ink xs" text-anchor="middle" >851 ms → 3.25 s</text>
+<text x="447.0" y="389.0" class="ink s b" text-anchor="middle" >3.8x</text>
+<rect x="520.0" y="362.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.09"/>
+<text x="587.0" y="374.0" class="ink xs" text-anchor="middle" >25.6 ms → 27.1 ms</text>
+<text x="587.0" y="389.0" class="ink s b" text-anchor="middle" >+6%</text>
+<rect x="660.0" y="362.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.15"/>
+<text x="727.0" y="374.0" class="ink xs" text-anchor="middle" >244 → 206</text>
+<text x="727.0" y="389.0" class="ink s b" text-anchor="middle" >-16%</text>
+<rect x="800.0" y="362.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.21"/>
+<text x="867.0" y="374.0" class="ink xs" text-anchor="middle" >1.22 → 0.89</text>
+<text x="867.0" y="389.0" class="ink s b" text-anchor="middle" >-27%</text>
+<text x="24.0" y="411.0" class="ink s" text-anchor="start" >Aggregated → P/D 1P:1D, FP8 KV (256)</text>
+<text x="24.0" y="425.0" class="faint xs" text-anchor="start" >P/D capped</text>
+<rect x="380.0" y="398.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="447.0" y="410.0" class="ink xs" text-anchor="middle" >4.10 s → 44.4 s</text>
+<text x="447.0" y="425.0" class="ink s b" text-anchor="middle" >10.8x</text>
+<rect x="520.0" y="398.0" width="134.0" height="32.0" rx="3" class="c1" fill-opacity="0.23"/>
+<text x="587.0" y="410.0" class="ink xs" text-anchor="middle" >56.4 ms → 38.5 ms</text>
+<text x="587.0" y="425.0" class="ink s b" text-anchor="middle" >-32%</text>
+<rect x="660.0" y="398.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.38"/>
+<text x="727.0" y="410.0" class="ink xs" text-anchor="middle" >402 → 167</text>
+<text x="727.0" y="425.0" class="ink s b" text-anchor="middle" >-58%</text>
+<rect x="800.0" y="398.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.27"/>
+<text x="867.0" y="410.0" class="ink xs" text-anchor="middle" >0.37 → 0.23</text>
+<text x="867.0" y="425.0" class="ink s b" text-anchor="middle" >-38%</text>
+<text x="24.0" y="447.0" class="ink s" text-anchor="start" >8 → 20 turns per session (TP8, 64)</text>
+<text x="24.0" y="461.0" class="faint xs" text-anchor="start" >rules differ</text>
+<rect x="380.0" y="434.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.08"/>
+<text x="447.0" y="446.0" class="ink xs" text-anchor="middle" >1,214 ms → 1,249 ms</text>
+<text x="447.0" y="461.0" class="ink s b" text-anchor="middle" >+3%</text>
+<rect x="520.0" y="434.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.19"/>
+<text x="587.0" y="446.0" class="ink xs" text-anchor="middle" >26.7 ms → 33.1 ms</text>
+<text x="587.0" y="461.0" class="ink s b" text-anchor="middle" >+24%</text>
+<rect x="660.0" y="434.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.22"/>
+<text x="727.0" y="446.0" class="ink xs" text-anchor="middle" >232 → 163</text>
+<text x="727.0" y="461.0" class="ink s b" text-anchor="middle" >-30%</text>
+<rect x="800.0" y="434.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.22"/>
+<text x="867.0" y="446.0" class="ink xs" text-anchor="middle" >1.16 → 0.82</text>
+<text x="867.0" y="461.0" class="ink s b" text-anchor="middle" >-30%</text>
+<text x="24.0" y="483.0" class="ink s" text-anchor="start" >64 → 256 sessions (TP8, BF16 KV)</text>
+<text x="24.0" y="497.0" class="faint xs" text-anchor="start" >like-for-like</text>
+<rect x="380.0" y="470.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="447.0" y="482.0" class="ink xs" text-anchor="middle" >1,214 ms → 17.9 s</text>
+<text x="447.0" y="497.0" class="ink s b" text-anchor="middle" >14.8x</text>
+<rect x="520.0" y="470.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="587.0" y="482.0" class="ink xs" text-anchor="middle" >26.7 ms → 216 ms</text>
+<text x="587.0" y="497.0" class="ink s b" text-anchor="middle" >8.1x</text>
+<rect x="660.0" y="470.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.22"/>
+<text x="727.0" y="482.0" class="ink xs" text-anchor="middle" >232 → 165</text>
+<text x="727.0" y="497.0" class="ink s b" text-anchor="middle" >-29%</text>
+<rect x="800.0" y="470.0" width="134.0" height="32.0" rx="3" class="cr" fill-opacity="0.61"/>
+<text x="867.0" y="482.0" class="ink xs" text-anchor="middle" >1.16 → 0.0004</text>
+<text x="867.0" y="497.0" class="ink s b" text-anchor="middle" >-100%</text>
+<text x="24.0" y="522.0" class="faint xs" text-anchor="start" >Notes: the TRT-LLM row also has a 5% smaller KV pool; the P/D 256 row compares a capped run with a complete one; 8 vs 20 turns mixes completion rules.</text>
+<text x="24.0" y="538.0" class="faint xs" text-anchor="start" >Qwen3-235B-A22B-Instruct-2507 FP8 | one node, 8x H100 SXM5 | Dynamo 1.6.0 | single run per point. Differences under about 10% are within run-to-run noise.</text>
+</svg>

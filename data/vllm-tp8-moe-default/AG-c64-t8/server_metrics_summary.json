@@ -1,0 +1,232 @@
+{
+ "schema_version": "1.1",
+ "aiperf_version": "0.13.0",
+ "metrics_phase": "profiling",
+ "source_roles": {
+  "8000": "frontend",
+  "8081": "worker0",
+  "8082": "worker1"
+ },
+ "metrics": {
+  "dynamo_component_router_kv_hit_rate": {
+   "type": "histogram",
+   "description": "Predicted KV cache hit rate at routing time (0.0-1.0)",
+   "unit": "ratio",
+   "series": [
+    {
+     "source": "frontend",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_namespace": "dynamo"
+     },
+     "stats": {
+      "count": 0
+     },
+     "buckets": {
+      "0": 0,
+      "0.05": 0,
+      "0.1": 0,
+      "0.15000000000000002": 0,
+      "0.2": 0,
+      "0.25": 0,
+      "0.30000000000000004": 0,
+      "0.35000000000000003": 0,
+      "0.4": 0,
+      "0.45": 0,
+      "0.5": 0,
+      "0.55": 0,
+      "0.6000000000000001": 0,
+      "0.65": 0,
+      "0.7000000000000001": 0,
+      "0.75": 0,
+      "0.8": 0,
+      "0.8500000000000001": 0,
+      "0.9": 0,
+      "0.9500000000000001": 0,
+      "1": 0,
+      "+Inf": 0
+     }
+    }
+   ]
+  },
+  "dynamo_frontend_time_to_first_token_seconds": {
+   "type": "histogram",
+   "description": "Time to first token in seconds",
+   "unit": "seconds",
+   "series": [
+    {
+     "source": "frontend",
+     "labels": {
+      "model": "qwen235"
+     },
+     "stats": {
+      "count": 512,
+      "sum": 414.25552857900004,
+      "avg": 0.8090928292558595,
+      "count_rate": 8.559429153456895,
+      "sum_rate": 6.925372750585526,
+      "p1_estimate": 0.15838949785962092,
+      "p5_estimate": 0.22,
+      "p10_estimate": 0.27933641862956765,
+      "p25_estimate": 0.47,
+      "p50_estimate": 0.7454063907770996,
+      "p75_estimate": 1.031437290744102,
+      "p90_estimate": 1.5110847057142098,
+      "p95_estimate": 1.7693884636129809,
+      "p99_estimate": 1.9760314699319983
+     },
+     "buckets": {
+      "0": 0,
+      "0.0022": 0,
+      "0.0047": 0,
+      "0.01": 0,
+      "0.022": 0,
+      "0.047": 0,
+      "0.1": 0,
+      "0.22": 21,
+      "0.47": 114,
+      "1": 357,
+      "2.2": 512,
+      "4.7": 512,
+      "10": 512,
+      "22": 512,
+      "48": 512,
+      "100": 512,
+      "220": 512,
+      "480": 512,
+      "+Inf": 512
+     }
+    }
+   ]
+  },
+  "vllm:kv_cache_usage_perc": {
+   "type": "gauge",
+   "description": "KV-cache usage. 1 means 100 percent usage.",
+   "unit": "ratio",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 0.17220028589421912,
+      "min": 0.0,
+      "max": 0.3696032467986845,
+      "std": 0.12589107512056946,
+      "p1": 0.0,
+      "p5": 0.0,
+      "p10": 0.0,
+      "p25": 0.05150094465047933,
+      "p50": 0.17234623189419918,
+      "p75": 0.2857042894129172,
+      "p90": 0.3343362955706388,
+      "p95": 0.36134630186830874,
+      "p99": 0.3696032467986845
+     }
+    }
+   ]
+  },
+  "vllm:num_preemptions": {
+   "type": "counter",
+   "description": "Cumulative number of preemption from the engine.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 0.0,
+      "rate": 0.0
+     }
+    }
+   ]
+  },
+  "vllm:num_requests_waiting": {
+   "type": "gauge",
+   "description": "Number of requests waiting to be processed.",
+   "unit": "requests",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "avg": 1.782857142857143,
+      "min": 0.0,
+      "max": 48.0,
+      "std": 6.531862037342557,
+      "p1": 0.0,
+      "p5": 0.0,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 0.0,
+      "p90": 4.599999999999994,
+      "p95": 11.299999999999983,
+      "p99": 38.37999999999988
+     }
+    }
+   ]
+  },
+  "vllm:prefix_cache_hits": {
+   "type": "counter",
+   "description": "Prefix cache hits, in terms of number of cached tokens.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 2482624.0,
+      "rate": 41510.35070132194
+     }
+    }
+   ]
+  },
+  "vllm:prefix_cache_queries": {
+   "type": "counter",
+   "description": "Prefix cache queries, in terms of number of queried tokens.",
+   "series": [
+    {
+     "source": "worker0",
+     "labels": {
+      "dynamo_component": "backend",
+      "dynamo_endpoint": "generate",
+      "dynamo_namespace": "dynamo",
+      "engine": "0",
+      "model": "qwen235",
+      "model_name": "qwen235"
+     },
+     "stats": {
+      "total": 2816082.0,
+      "rate": 47085.886313706826
+     }
+    }
+   ]
+  }
+ }
+}

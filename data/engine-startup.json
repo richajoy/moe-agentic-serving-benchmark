@@ -1,0 +1,381 @@
+{
+ "vllm-dp8ep8": {
+  "layout": "DP8+EP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 747008,
+    "kv_tokens_per_rank": [
+     93376
+    ],
+    "engine_cores": 8,
+    "available_kv_gib_per_gpu": 16.75,
+    "weights_gib_per_gpu": 35.16,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 254.99,
+    "compile_s": 61.16,
+    "log_start_to_endpoint_registered_s": 331.3,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-dp8ep8-kvrouter": {
+  "layout": "DP8+EP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "kv",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 748032,
+    "kv_tokens_per_rank": [
+     93504
+    ],
+    "engine_cores": 8,
+    "available_kv_gib_per_gpu": 16.77,
+    "weights_gib_per_gpu": 35.16,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 101.78,
+    "compile_s": 0.21,
+    "log_start_to_endpoint_registered_s": 176.3,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-tp8": {
+  "layout": "TP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 914240,
+    "kv_tokens_per_rank": [
+     914240
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 40.98,
+    "weights_gib_per_gpu": 27.74,
+    "moe_backend": [
+     "TRITON"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": true,
+    "triton_moe_config": "default",
+    "engine_init_s": 357.34,
+    "compile_s": 81.25,
+    "log_start_to_endpoint_registered_s": 460.0,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-tp8-matrix": {
+  "layout": "TP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 914688,
+    "kv_tokens_per_rank": [
+     914688
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 41.0,
+    "weights_gib_per_gpu": 27.74,
+    "moe_backend": [
+     "TRITON"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": true,
+    "triton_moe_config": "default",
+    "engine_init_s": 82.8,
+    "compile_s": 0.29,
+    "log_start_to_endpoint_registered_s": 159.2,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "trtllm-tp8ep8": {
+  "layout": "TP8+EP8",
+  "engine": "trtllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "trtllm",
+    "kv_tokens": 860608,
+    "kv_tokens_per_rank": 860608,
+    "kv_pool_gib_per_gpu": 38.57,
+    "weights_gib_per_gpu": null,
+    "moe_backend": null,
+    "attention_backend": null,
+    "moe_block_refinement": null,
+    "engine_init_s": null,
+    "compile_s": null,
+    "log_start_to_endpoint_registered_s": 190.2,
+    "registered_endpoint": "dynamo.backend.generate",
+    "notes": "TRT-LLM log does not print weights GiB, MoE backend or attention backend; null = not logged. kv_tokens from the final 'Allocated ... paged KV cache (N)' line on rank 0 (the first allocation is a 73,728-token probe)."
+   }
+  }
+ },
+ "vllm-tp8ep8": {
+  "layout": "TP8+EP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 906304,
+    "kv_tokens_per_rank": [
+     906304
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 40.62,
+    "weights_gib_per_gpu": 27.72,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 149.31,
+    "compile_s": 54.09,
+    "log_start_to_endpoint_registered_s": 217.7,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-tp8ep8-fp8kv": {
+  "layout": "TP8+EP8",
+  "engine": "vllm",
+  "kv_dtype": "fp8",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 1812224,
+    "kv_tokens_per_rank": [
+     1812224
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 40.62,
+    "weights_gib_per_gpu": 27.72,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 153.34,
+    "compile_s": 55.78,
+    "log_start_to_endpoint_registered_s": 222.4,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-pd-1p1d": {
+  "layout": "P/D 1P:1D (TP4+EP4 each)",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 294016,
+    "kv_tokens_per_rank": [
+     294016
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 13.18,
+    "weights_gib_per_gpu": 55.19,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 142.14,
+    "compile_s": 52.71,
+    "log_start_to_endpoint_registered_s": 213.5,
+    "registered_endpoint": "dynamo.backend.generate"
+   },
+   "worker1": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 301184,
+    "kv_tokens_per_rank": [
+     301184
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 13.5,
+    "weights_gib_per_gpu": 55.19,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 138.39,
+    "compile_s": 52.98,
+    "log_start_to_endpoint_registered_s": 209.6,
+    "registered_endpoint": "dynamo.prefill.generate"
+   }
+  }
+ },
+ "vllm-pd-1p1d-fp8kv": {
+  "layout": "P/D 1P:1D (TP4+EP4 each)",
+  "engine": "vllm",
+  "kv_dtype": "fp8",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 587648,
+    "kv_tokens_per_rank": [
+     587648
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 13.17,
+    "weights_gib_per_gpu": 55.19,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 297.38,
+    "compile_s": 78.16,
+    "log_start_to_endpoint_registered_s": 374.1,
+    "registered_endpoint": "dynamo.backend.generate"
+   },
+   "worker1": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 602112,
+    "kv_tokens_per_rank": [
+     602112
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 13.49,
+    "weights_gib_per_gpu": 55.19,
+    "moe_backend": [
+     "FLASHINFER_CUTLASS"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": false,
+    "triton_moe_config": null,
+    "engine_init_s": 291.85,
+    "compile_s": 78.51,
+    "log_start_to_endpoint_registered_s": 368.3,
+    "registered_endpoint": "dynamo.prefill.generate"
+   }
+  }
+ },
+ "vllm-tp8-moe-default": {
+  "layout": "TP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 914688,
+    "kv_tokens_per_rank": [
+     914688
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 41.0,
+    "weights_gib_per_gpu": 27.74,
+    "moe_backend": [
+     "TRITON"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": true,
+    "triton_moe_config": "default",
+    "engine_init_s": 80.84,
+    "compile_s": 0.3,
+    "log_start_to_endpoint_registered_s": 158.3,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ },
+ "vllm-tp8-moe-tuned": {
+  "layout": "TP8",
+  "engine": "vllm",
+  "kv_dtype": "bf16",
+  "router": "round-robin",
+  "workers": {
+   "worker0": {
+    "engine": "vllm",
+    "vllm_version": "0.31.0",
+    "kv_tokens": 914688,
+    "kv_tokens_per_rank": [
+     914688
+    ],
+    "engine_cores": 1,
+    "available_kv_gib_per_gpu": 41.0,
+    "weights_gib_per_gpu": 27.74,
+    "moe_backend": [
+     "TRITON"
+    ],
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "moe_block_refinement": true,
+    "triton_moe_config": "tuned",
+    "engine_init_s": 86.35,
+    "compile_s": 0.33,
+    "log_start_to_endpoint_registered_s": 163.4,
+    "registered_endpoint": "dynamo.backend.generate"
+   }
+  }
+ }
+}

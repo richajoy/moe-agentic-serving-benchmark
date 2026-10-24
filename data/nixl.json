@@ -1,0 +1,65 @@
+{
+ "_about": "Per-transfer NIXL KV-transfer cost on the decode (consumer) worker of each P/D point, from the vllm:nixl_* histograms (sum / count over the profiling window). One transfer = one TP-rank KV pull, so a TP4 request is 4 transfers.",
+ "points": {
+  "vllm-pd-1p1d/AG-c64-t8": {
+   "transfers": 2048,
+   "mb_per_transfer": 84.458624,
+   "xfer_ms": 23.366030273437495,
+   "post_ms": 7.261287109374997,
+   "post_share_pct": 31.076254821212096,
+   "descriptors_per_transfer": 1783.61328125,
+   "gb_s_per_transfer": 3.614590198319334,
+   "failed_transfers": 0,
+   "failed_notifications": 0,
+   "kv_expired_reqs": 0,
+   "consumer_sources": [
+    "worker0"
+   ]
+  },
+  "vllm-pd-1p1d-fp8kv/AG-c256-t8": {
+   "transfers": 8608,
+   "mb_per_transfer": 84.14706676579925,
+   "xfer_ms": 35.30956796003717,
+   "post_ms": 17.151973396840148,
+   "post_share_pct": 48.5759933858508,
+   "descriptors_per_transfer": 4717.690520446096,
+   "gb_s_per_transfer": 2.3831236581834028,
+   "failed_transfers": 0,
+   "failed_notifications": 0,
+   "kv_expired_reqs": 0,
+   "consumer_sources": [
+    "worker0"
+   ]
+  },
+  "vllm-pd-1p1d-fp8kv/AG-c64-t8": {
+   "transfers": 2048,
+   "mb_per_transfer": 16.474816,
+   "xfer_ms": 16.95925292968746,
+   "post_ms": 1.4498725585937475,
+   "post_share_pct": 8.549153459794924,
+   "descriptors_per_transfer": 155.13671875,
+   "gb_s_per_transfer": 0.971435243539564,
+   "failed_transfers": 0,
+   "failed_notifications": 0,
+   "kv_expired_reqs": 0,
+   "consumer_sources": [
+    "worker0"
+   ]
+  },
+  "vllm-pd-1p1d-fp8kv/S2-c16": {
+   "transfers": 400,
+   "mb_per_transfer": 395.804672,
+   "xfer_ms": 100.85193000000046,
+   "post_ms": 80.75978249999963,
+   "post_share_pct": 80.07757759320943,
+   "descriptors_per_transfer": 23151.26,
+   "gb_s_per_transfer": 3.9246117749060248,
+   "failed_transfers": 0,
+   "failed_notifications": 0,
+   "kv_expired_reqs": 0,
+   "consumer_sources": [
+    "worker0"
+   ]
+  }
+ }
+}

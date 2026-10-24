@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc">
+<title id="title">Measured operating frontier for agentic serving on one 8x H100 node: throughput per GPU versus per-user speed</title>
+<desc id="desc">Each of the 21 eight-turn agentic points is plotted as output tokens per second per GPU against tokens per second per user (1000 / ITL p90). Solid markers meet the target: at least 90% of requests met TTFT 2 s and ITL 50 ms. Hollow markers did not. Only two points are on the frontier: TP8+EP8 BF16 KV at 64 sessions (39.0 tok/s/user, 243.6 tok/s/GPU, 100% in SLO) and TP8+EP8 FP8 KV at 256 sessions (17.7 tok/s/user, 401.9 tok/s/GPU, 18.4% in SLO). Concurrencies 96 to 192 were not measured, so the curve between them is unknown. Dashed lines mark 20 tok/s/user (the 50 ms ITL SLO) and the InferenceX reference tiers of 35 and 50 tok/s/user.</desc>
+<!--
+Data sources (every measured number in this animation is read from these files):
+  data/points.json: every row whose point name ends in -t8 (out_tok_s_gpu, tok_s_user_p90, slo_ok_pct, ttft_p90_ms)
+  Reference tiers: InferenceX calculator default 35 tok/s/user and default tier 50 tok/s/user (docs/07-how-this-compares.md)
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+
+  .still{display:none}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important} .still{display:inline} .motion{display:none} }
+
+@keyframes k0{0.00%{opacity:0} 3.40%{opacity:0} 4.00%{opacity:1} 100.00%{opacity:1}}.k0{animation:k0 16s linear infinite}
+@keyframes k1{0.00%{opacity:0} 6.20%{opacity:0} 6.80%{opacity:1} 100.00%{opacity:1}}.k1{animation:k1 16s linear infinite}
+@keyframes k2{0.00%{opacity:0} 9.00%{opacity:0} 9.60%{opacity:1} 100.00%{opacity:1}}.k2{animation:k2 16s linear infinite}
+@keyframes k3{0.00%{opacity:0} 11.80%{opacity:0} 12.40%{opacity:1} 100.00%{opacity:1}}.k3{animation:k3 16s linear infinite}
+@keyframes k4{0.00%{opacity:0} 14.60%{opacity:0} 15.20%{opacity:1} 100.00%{opacity:1}}.k4{animation:k4 16s linear infinite}
+@keyframes k5{0.00%{opacity:0} 17.40%{opacity:0} 18.00%{opacity:1} 100.00%{opacity:1}}.k5{animation:k5 16s linear infinite}
+@keyframes k6{0.00%{opacity:0} 20.20%{opacity:0} 20.80%{opacity:1} 100.00%{opacity:1}}.k6{animation:k6 16s linear infinite}
+@keyframes k7{0.00%{opacity:0} 23.00%{opacity:0} 23.60%{opacity:1} 100.00%{opacity:1}}.k7{animation:k7 16s linear infinite}
+@keyframes k8{0.00%{opacity:0} 25.80%{opacity:0} 26.40%{opacity:1} 100.00%{opacity:1}}.k8{animation:k8 16s linear infinite}
+@keyframes k9{0.00%{opacity:0} 28.60%{opacity:0} 29.20%{opacity:1} 100.00%{opacity:1}}.k9{animation:k9 16s linear infinite}
+@keyframes k10{0.00%{opacity:0} 31.40%{opacity:0} 32.00%{opacity:1} 100.00%{opacity:1}}.k10{animation:k10 16s linear infinite}
+@keyframes k11{0.00%{opacity:0} 34.20%{opacity:0} 34.80%{opacity:1} 100.00%{opacity:1}}.k11{animation:k11 16s linear infinite}
+@keyframes k12{0.00%{opacity:0} 37.00%{opacity:0} 37.60%{opacity:1} 100.00%{opacity:1}}.k12{animation:k12 16s linear infinite}
+@keyframes k13{0.00%{opacity:0} 39.80%{opacity:0} 40.40%{opacity:1} 100.00%{opacity:1}}.k13{animation:k13 16s linear infinite}
+@keyframes k14{0.00%{opacity:0} 42.60%{opacity:0} 43.20%{opacity:1} 100.00%{opacity:1}}.k14{animation:k14 16s linear infinite}
+@keyframes k15{0.00%{opacity:0} 45.40%{opacity:0} 46.00%{opacity:1} 100.00%{opacity:1}}.k15{animation:k15 16s linear infinite}
+@keyframes k16{0.00%{opacity:0} 48.20%{opacity:0} 48.80%{opacity:1} 100.00%{opacity:1}}.k16{animation:k16 16s linear infinite}
+@keyframes k17{0.00%{opacity:0} 51.00%{opacity:0} 51.60%{opacity:1} 100.00%{opacity:1}}.k17{animation:k17 16s linear infinite}
+@keyframes k18{0.00%{opacity:0} 53.80%{opacity:0} 54.40%{opacity:1} 100.00%{opacity:1}}.k18{animation:k18 16s linear infinite}
+@keyframes k19{0.00%{opacity:0} 56.60%{opacity:0} 57.20%{opacity:1} 100.00%{opacity:1}}.k19{animation:k19 16s linear infinite}
+@keyframes k20{0.00%{opacity:0} 59.40%{opacity:0} 60.00%{opacity:1} 100.00%{opacity:1}}.k20{animation:k20 16s linear infinite}
+@keyframes k21{0.00%{opacity:0} 61.40%{opacity:0} 62.00%{opacity:1} 100.00%{opacity:1}}.k21{animation:k21 16s linear infinite}
+@keyframes k22{0.00%{opacity:0} 61.40%{opacity:0} 62.00%{opacity:1} 100.00%{opacity:1}}.k22{animation:k22 16s linear infinite}
+@keyframes k23{0.00%{opacity:0} 61.40%{opacity:0} 62.00%{opacity:1} 100.00%{opacity:1}}.k23{animation:k23 16s linear infinite}
+@keyframes k24{0.00%{opacity:0} 73.40%{opacity:0} 74.00%{opacity:1} 100.00%{opacity:1}}.k24{animation:k24 16s linear infinite}
+</style>
+<rect class="bg" x="0" y="0" width="960" height="540"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >The measured operating frontier: two points, and a gap between them</text>
+<text x="24.0" y="54.0" class="mut" text-anchor="start" >8-turn agentic sessions on one 8x H100 node. x = tok/s per user at p90 (1000 / ITL p90), y = output tok/s per GPU</text>
+<line x1="110.0" y1="92.0" x2="110.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="110.0" y="438.0" class="mut s" text-anchor="middle" >0</text>
+<line x1="224.0" y1="92.0" x2="224.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="224.0" y="438.0" class="mut s" text-anchor="middle" >10</text>
+<line x1="338.0" y1="92.0" x2="338.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="338.0" y="438.0" class="mut s" text-anchor="middle" >20</text>
+<line x1="452.0" y1="92.0" x2="452.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="452.0" y="438.0" class="mut s" text-anchor="middle" >30</text>
+<line x1="566.0" y1="92.0" x2="566.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="566.0" y="438.0" class="mut s" text-anchor="middle" >40</text>
+<line x1="680.0" y1="92.0" x2="680.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="680.0" y="438.0" class="mut s" text-anchor="middle" >50</text>
+<line x1="110.0" y1="420.0" x2="680.0" y2="420.0" class="grid" stroke-width="1.0" />
+<text x="102.0" y="424.0" class="mut s" text-anchor="end" >0</text>
+<line x1="110.0" y1="347.1" x2="680.0" y2="347.1" class="grid" stroke-width="1.0" />
+<text x="102.0" y="351.1" class="mut s" text-anchor="end" >100</text>
+<line x1="110.0" y1="274.2" x2="680.0" y2="274.2" class="grid" stroke-width="1.0" />
+<text x="102.0" y="278.2" class="mut s" text-anchor="end" >200</text>
+<line x1="110.0" y1="201.3" x2="680.0" y2="201.3" class="grid" stroke-width="1.0" />
+<text x="102.0" y="205.3" class="mut s" text-anchor="end" >300</text>
+<line x1="110.0" y1="128.4" x2="680.0" y2="128.4" class="grid" stroke-width="1.0" />
+<text x="102.0" y="132.4" class="mut s" text-anchor="end" >400</text>
+<line x1="110.0" y1="420.0" x2="680.0" y2="420.0" class="axis" stroke-width="1.0" />
+<line x1="110.0" y1="92.0" x2="110.0" y2="420.0" class="axis" stroke-width="1.0" />
+<text x="395.0" y="458.0" class="mut s" text-anchor="middle" >tok/s per user at p90 (1000 / ITL p90): higher = faster streaming for the slowest 10%</text>
+<text x="58.0" y="256.0" class="mut s" text-anchor="middle" transform="rotate(-90 58 256.0)">output tok/s per GPU</text>
+<line x1="338.0" y1="92.0" x2="338.0" y2="420.0" class="sr" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="334.0" y="412.0" class="cr xs halo" text-anchor="end" >20: ITL 50 ms (our SLO)</text>
+<line x1="509.0" y1="92.0" x2="509.0" y2="420.0" class="s4" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="505.0" y="396.0" class="c4 xs halo" text-anchor="end" >35: InferenceX calculator default</text>
+<line x1="680.0" y1="92.0" x2="680.0" y2="420.0" class="s4" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="676.0" y="412.0" class="c4 xs halo" text-anchor="end" >50: InferenceX default tier</text>
+<g class="k0" opacity="1"><circle cx="521.5" cy="256.3" r="6" class="c2 s2" stroke-width="2"/></g>
+<g class="k1" opacity="1"><circle cx="385.2" cy="309.7" r="6" class="hollow s4" stroke-width="2"/></g>
+<g class="k2" opacity="1"><circle cx="421.1" cy="294.4" r="6" class="hollow s4" stroke-width="2"/></g>
+<g class="k3" opacity="1"><rect x="525.1" y="264.2" width="12" height="12" class="hollow s4" stroke-width="2"/></g>
+<g class="k4" opacity="1"><path d="M538.4,249.3 L545.3,261.8 L531.5,261.8 Z" class="c4 s4" stroke-width="2"/></g>
+<g class="k5" opacity="1"><circle cx="536.3" cy="250.7" r="6" class="c1 s1" stroke-width="2"/></g>
+<g class="k6" opacity="1"><circle cx="536.1" cy="251.3" r="6" class="c1 s1" stroke-width="2"/></g>
+<g class="k7" opacity="1"><circle cx="544.1" cy="257.4" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k8" opacity="1"><rect x="548.8" y="236.4" width="12" height="12" class="c2 s2" stroke-width="2"/></g>
+<g class="k9" opacity="1"><circle cx="189.9" cy="269.4" r="6" class="hollow s2" stroke-width="2"/></g>
+<g class="k10" opacity="1"><circle cx="213.4" cy="270.6" r="6" class="hollow s4" stroke-width="2"/></g>
+<g class="k11" opacity="1"><circle cx="212.4" cy="269.3" r="6" class="hollow s4" stroke-width="2"/></g>
+<g class="k12" opacity="1"><path d="M406.2,291.0 L413.1,303.4 L399.3,303.4 Z" class="hollow s4" stroke-width="2"/></g>
+<g class="k13" opacity="1"><circle cx="162.8" cy="299.5" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k14" opacity="1"><circle cx="162.9" cy="285.5" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k15" opacity="1"><circle cx="171.4" cy="274.5" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k16" opacity="1"><rect x="173.3" y="266.4" width="12" height="12" class="hollow s2" stroke-width="2"/></g>
+<g class="k17" opacity="1"><path d="M312.2,120.2 L319.1,132.6 L305.3,132.6 Z" class="hollow s3" stroke-width="2"/></g>
+<g class="k18" opacity="1"><circle cx="162.5" cy="286.3" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k19" opacity="1"><circle cx="153.0" cy="263.5" r="6" class="hollow s1" stroke-width="2"/></g>
+<g class="k20" opacity="1"><path d="M150.9,201.1 L157.8,213.5 L144.0,213.5 Z" class="hollow s3" stroke-width="2"/></g>
+<g class="k21" opacity="1"><polyline points="312.2,127.1 554.8,242.4" fill="none" class="sy" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/></g>
+<g class="k22" opacity="1"><line x1="554.8" y1="250.4" x2="672.0" y2="310.4" class="axis" stroke-width="1" /><text x="676.0" y="324.4" class="ink s b halo" text-anchor="end" >64 sessions, BF16 KV: 244 tok/s/GPU,</text><text x="676.0" y="340.4" class="ink xs halo" text-anchor="end" >39 tok/s/user, TTFT p90 851 ms, 100% in SLO</text></g>
+<g class="k23" opacity="1"><text x="322.2" y="123.1" class="ink s b halo" text-anchor="start" >256 sessions, FP8 KV: 402 tok/s/GPU, 18 tok/s/user,</text><text x="322.2" y="139.1" class="ink xs halo" text-anchor="start" >TTFT p90 4.10 s, only 18% in SLO</text></g>
+<g class="k24" opacity="1"><circle cx="433.5" cy="184.8" r="26" class="cy" fill-opacity=".18"/><text x="403.5" y="228.8" class="cy s b" text-anchor="middle" >96 to 192 sessions:</text><text x="403.5" y="244.8" class="cy s b" text-anchor="middle" >not measured</text></g>
+<rect x="708.0" y="84.0" width="236.0" height="336.0" rx="8" class="pan" />
+<text x="722.0" y="108.0" class="ink h" text-anchor="start" >How to read it</text>
+<text x="722.0" y="132.0" class="ink s" text-anchor="start" >Up = more output per GPU</text>
+<text x="722.0" y="151.0" class="ink s" text-anchor="start" >(cheaper tokens).</text>
+<text x="722.0" y="170.0" class="ink s" text-anchor="start" >Right = faster streaming</text>
+<text x="722.0" y="189.0" class="ink s" text-anchor="start" >for the slowest 10% of users.</text>
+<text x="722.0" y="208.0" class="ink s" text-anchor="start" >Solid = meets the target:</text>
+<text x="722.0" y="227.0" class="ink s" text-anchor="start" >at least 90% of requests had</text>
+<text x="722.0" y="246.0" class="ink s" text-anchor="start" >TTFT ≤ 2 s and ITL ≤ 50 ms.</text>
+<text x="722.0" y="265.0" class="ink s" text-anchor="start" >Hollow = fewer.</text>
+<text x="722.0" y="284.0" class="ink s" text-anchor="start" ></text>
+<text x="722.0" y="303.0" class="ink s" text-anchor="start" >Every point past 64</text>
+<text x="722.0" y="322.0" class="ink s" text-anchor="start" >sessions is hollow: the</text>
+<text x="722.0" y="341.0" class="ink s" text-anchor="start" >last load that meets the</text>
+<text x="722.0" y="360.0" class="ink s" text-anchor="start" >target lies between 64</text>
+<text x="722.0" y="379.0" class="ink s" text-anchor="start" >and 256 sessions.</text>
+<circle cx="30.0" cy="488.0" r="5" class="c1 s1" stroke-width="2"/>
+<text x="40.0" y="492.0" class="ink xs" text-anchor="start" >TP8, BF16 KV</text>
+<rect x="157.0" y="483.0" width="10" height="10" class="c2 s2" stroke-width="2"/>
+<text x="172.0" y="492.0" class="ink xs" text-anchor="start" >TP8+EP8, BF16 KV</text>
+<path d="M294.0,482.2 L299.8,492.6 L288.2,492.6 Z" class="c3 s3" stroke-width="2"/>
+<text x="304.0" y="492.0" class="ink xs" text-anchor="start" >TP8+EP8, FP8 KV</text>
+<circle cx="426.0" cy="488.0" r="5" class="c2 s2" stroke-width="2"/>
+<text x="436.0" y="492.0" class="ink xs" text-anchor="start" >TRT-LLM TP8+EP8</text>
+<circle cx="558.0" cy="488.0" r="5" class="c4 s4" stroke-width="2"/>
+<text x="568.0" y="492.0" class="ink xs" text-anchor="start" >DP8+EP8</text>
+<path d="M690.0,482.2 L695.8,492.6 L684.2,492.6 Z" class="c4 s4" stroke-width="2"/>
+<text x="700.0" y="492.0" class="ink xs" text-anchor="start" >P/D, FP8 KV</text>
+<rect x="817.0" y="483.0" width="10" height="10" class="c4 s4" stroke-width="2"/>
+<text x="832.0" y="492.0" class="ink xs" text-anchor="start" >P/D, BF16 KV</text>
+<text x="24.0" y="509.0" class="faint xs" text-anchor="start" >Points: every 8-turn agentic run (16 to 1,000 sessions). Per-GPU values divide by all 8 GPUs. FP8 KV used an uncalibrated scale (quality not verified).</text>
+<text x="24.0" y="526.0" class="faint xs" text-anchor="start" >Qwen3-235B-A22B-Instruct-2507 FP8 | 8x H100 SXM5 | Dynamo 1.6.0 | vLLM 0.31.0 and TensorRT-LLM 1.3.0rc29 | single runs</text>
+</svg>

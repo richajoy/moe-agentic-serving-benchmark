@@ -1,0 +1,2407 @@
+{
+"task": "gsm8k (first 400 test questions, greedy, chat endpoint)",
+"n": 400,
+"acc": 0.945,
+"results": [
+{
+"i": 0,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 1,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 2,
+"pred": "70000",
+"gold": "70000",
+"ok": true
+},
+{
+"i": 3,
+"pred": "540",
+"gold": "540",
+"ok": true
+},
+{
+"i": 4,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 5,
+"pred": "64",
+"gold": "64",
+"ok": true
+},
+{
+"i": 6,
+"pred": "260",
+"gold": "260",
+"ok": true
+},
+{
+"i": 7,
+"pred": "160",
+"gold": "160",
+"ok": true
+},
+{
+"i": 8,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 9,
+"pred": "460",
+"gold": "460",
+"ok": true
+},
+{
+"i": 10,
+"pred": "366",
+"gold": "366",
+"ok": true
+},
+{
+"i": 11,
+"pred": "694",
+"gold": "694",
+"ok": true
+},
+{
+"i": 12,
+"pred": "13",
+"gold": "13",
+"ok": true
+},
+{
+"i": 13,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 14,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 15,
+"pred": "125",
+"gold": "125",
+"ok": true
+},
+{
+"i": 16,
+"pred": "230",
+"gold": "230",
+"ok": true
+},
+{
+"i": 17,
+"pred": "57500",
+"gold": "57500",
+"ok": true
+},
+{
+"i": 18,
+"pred": "7",
+"gold": "7",
+"ok": true
+},
+{
+"i": 19,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 20,
+"pred": null,
+"gold": "15",
+"ok": false
+},
+{
+"i": 21,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 22,
+"pred": "7",
+"gold": "7",
+"ok": true
+},
+{
+"i": 23,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 24,
+"pred": "26",
+"gold": "26",
+"ok": true
+},
+{
+"i": 25,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 26,
+"pred": "243",
+"gold": "243",
+"ok": true
+},
+{
+"i": 27,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 28,
+"pred": "25",
+"gold": "25",
+"ok": true
+},
+{
+"i": 29,
+"pred": "104",
+"gold": "104",
+"ok": true
+},
+{
+"i": 30,
+"pred": "109",
+"gold": "109",
+"ok": true
+},
+{
+"i": 31,
+"pred": "80",
+"gold": "80",
+"ok": true
+},
+{
+"i": 32,
+"pred": "35",
+"gold": "35",
+"ok": true
+},
+{
+"i": 33,
+"pred": "70",
+"gold": "70",
+"ok": true
+},
+{
+"i": 34,
+"pred": "23",
+"gold": "23",
+"ok": true
+},
+{
+"i": 35,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 36,
+"pred": "75",
+"gold": "75",
+"ok": true
+},
+{
+"i": 37,
+"pred": "13",
+"gold": "2",
+"ok": false
+},
+{
+"i": 38,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 39,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 40,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 41,
+"pred": "200",
+"gold": "200",
+"ok": true
+},
+{
+"i": 42,
+"pred": "26",
+"gold": "26",
+"ok": true
+},
+{
+"i": 43,
+"pred": "48",
+"gold": "48",
+"ok": true
+},
+{
+"i": 44,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 45,
+"pred": "104",
+"gold": "104",
+"ok": true
+},
+{
+"i": 46,
+"pred": "163",
+"gold": "163",
+"ok": true
+},
+{
+"i": 47,
+"pred": "800",
+"gold": "800",
+"ok": true
+},
+{
+"i": 48,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 49,
+"pred": "30",
+"gold": "30",
+"ok": true
+},
+{
+"i": 50,
+"pred": "294",
+"gold": "294",
+"ok": true
+},
+{
+"i": 51,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 52,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 53,
+"pred": "40",
+"gold": "40",
+"ok": true
+},
+{
+"i": 54,
+"pred": "40",
+"gold": "40",
+"ok": true
+},
+{
+"i": 55,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 56,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 57,
+"pred": "83",
+"gold": "83",
+"ok": true
+},
+{
+"i": 58,
+"pred": "57",
+"gold": "57",
+"ok": true
+},
+{
+"i": 59,
+"pred": "187",
+"gold": "187",
+"ok": true
+},
+{
+"i": 60,
+"pred": "2",
+"gold": "17",
+"ok": false
+},
+{
+"i": 61,
+"pred": "1430",
+"gold": "1430",
+"ok": true
+},
+{
+"i": 62,
+"pred": "25000",
+"gold": "25000",
+"ok": true
+},
+{
+"i": 63,
+"pred": "1596",
+"gold": "1596",
+"ok": true
+},
+{
+"i": 64,
+"pred": "300",
+"gold": "300",
+"ok": true
+},
+{
+"i": 65,
+"pred": "36",
+"gold": "36",
+"ok": true
+},
+{
+"i": 66,
+"pred": "48",
+"gold": "48",
+"ok": true
+},
+{
+"i": 67,
+"pred": "595",
+"gold": "595",
+"ok": true
+},
+{
+"i": 68,
+"pred": "36",
+"gold": "36",
+"ok": true
+},
+{
+"i": 69,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 70,
+"pred": "7425",
+"gold": "7425",
+"ok": true
+},
+{
+"i": 71,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 72,
+"pred": "221",
+"gold": "221",
+"ok": true
+},
+{
+"i": 73,
+"pred": "255",
+"gold": "255",
+"ok": true
+},
+{
+"i": 74,
+"pred": "88",
+"gold": "88",
+"ok": true
+},
+{
+"i": 75,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 76,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 77,
+"pred": "100",
+"gold": "100",
+"ok": true
+},
+{
+"i": 78,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 79,
+"pred": "70",
+"gold": "70",
+"ok": true
+},
+{
+"i": 80,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 81,
+"pred": "17",
+"gold": "17",
+"ok": true
+},
+{
+"i": 82,
+"pred": "623",
+"gold": "623",
+"ok": true
+},
+{
+"i": 83,
+"pred": "600",
+"gold": "600",
+"ok": true
+},
+{
+"i": 84,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 85,
+"pred": "44",
+"gold": "44",
+"ok": true
+},
+{
+"i": 86,
+"pred": "22",
+"gold": "22",
+"ok": true
+},
+{
+"i": 87,
+"pred": "9360",
+"gold": "9360",
+"ok": true
+},
+{
+"i": 88,
+"pred": "8000",
+"gold": "8000",
+"ok": true
+},
+{
+"i": 89,
+"pred": "24",
+"gold": "24",
+"ok": true
+},
+{
+"i": 90,
+"pred": "225",
+"gold": "225",
+"ok": true
+},
+{
+"i": 91,
+"pred": "28",
+"gold": "28",
+"ok": true
+},
+{
+"i": 92,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 93,
+"pred": "36.36",
+"gold": "36",
+"ok": false
+},
+{
+"i": 94,
+"pred": "348",
+"gold": "348",
+"ok": true
+},
+{
+"i": 95,
+"pred": "40",
+"gold": "40",
+"ok": true
+},
+{
+"i": 96,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 97,
+"pred": "12",
+"gold": "12",
+"ok": true
+},
+{
+"i": 98,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 99,
+"pred": "58",
+"gold": "58",
+"ok": true
+},
+{
+"i": 100,
+"pred": "175",
+"gold": "175",
+"ok": true
+},
+{
+"i": 101,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 102,
+"pred": "26",
+"gold": "26",
+"ok": true
+},
+{
+"i": 103,
+"pred": "140",
+"gold": "140",
+"ok": true
+},
+{
+"i": 104,
+"pred": "500",
+"gold": "500",
+"ok": true
+},
+{
+"i": 105,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 106,
+"pred": "72",
+"gold": "72",
+"ok": true
+},
+{
+"i": 107,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 108,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 109,
+"pred": "28",
+"gold": "28",
+"ok": true
+},
+{
+"i": 110,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 111,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 112,
+"pred": "24",
+"gold": "24",
+"ok": true
+},
+{
+"i": 113,
+"pred": "25",
+"gold": "25",
+"ok": true
+},
+{
+"i": 114,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 115,
+"pred": "90",
+"gold": "90",
+"ok": true
+},
+{
+"i": 116,
+"pred": "42",
+"gold": "42",
+"ok": true
+},
+{
+"i": 117,
+"pred": "360",
+"gold": "360",
+"ok": true
+},
+{
+"i": 118,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 119,
+"pred": "40000",
+"gold": "95200",
+"ok": false
+},
+{
+"i": 120,
+"pred": "240",
+"gold": "240",
+"ok": true
+},
+{
+"i": 121,
+"pred": "27",
+"gold": "27",
+"ok": true
+},
+{
+"i": 122,
+"pred": "48",
+"gold": "48",
+"ok": true
+},
+{
+"i": 123,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 124,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 125,
+"pred": "7",
+"gold": "10",
+"ok": false
+},
+{
+"i": 126,
+"pred": "82",
+"gold": "82",
+"ok": true
+},
+{
+"i": 127,
+"pred": "120",
+"gold": "120",
+"ok": true
+},
+{
+"i": 128,
+"pred": "880",
+"gold": "880",
+"ok": true
+},
+{
+"i": 129,
+"pred": "10000",
+"gold": "10000",
+"ok": true
+},
+{
+"i": 130,
+"pred": "30",
+"gold": "30",
+"ok": true
+},
+{
+"i": 131,
+"pred": "940",
+"gold": "940",
+"ok": true
+},
+{
+"i": 132,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 133,
+"pred": "13",
+"gold": "13",
+"ok": true
+},
+{
+"i": 134,
+"pred": "720",
+"gold": "720",
+"ok": true
+},
+{
+"i": 135,
+"pred": "40",
+"gold": "40",
+"ok": true
+},
+{
+"i": 136,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 137,
+"pred": "29.00",
+"gold": "29",
+"ok": true
+},
+{
+"i": 138,
+"pred": "105",
+"gold": "105",
+"ok": true
+},
+{
+"i": 139,
+"pred": "70",
+"gold": "70",
+"ok": true
+},
+{
+"i": 140,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 141,
+"pred": "400",
+"gold": "400",
+"ok": true
+},
+{
+"i": 142,
+"pred": "140",
+"gold": "140",
+"ok": true
+},
+{
+"i": 143,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 144,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 145,
+"pred": "4000",
+"gold": "4000",
+"ok": true
+},
+{
+"i": 146,
+"pred": "2125",
+"gold": "2125",
+"ok": true
+},
+{
+"i": 147,
+"pred": "6",
+"gold": "75",
+"ok": false
+},
+{
+"i": 148,
+"pred": "30",
+"gold": "30",
+"ok": true
+},
+{
+"i": 149,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 150,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 151,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 152,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 153,
+"pred": "2",
+"gold": "48",
+"ok": false
+},
+{
+"i": 154,
+"pred": "272",
+"gold": "272",
+"ok": true
+},
+{
+"i": 155,
+"pred": "280",
+"gold": "280",
+"ok": true
+},
+{
+"i": 156,
+"pred": "1400",
+"gold": "1400",
+"ok": true
+},
+{
+"i": 157,
+"pred": "80",
+"gold": "80",
+"ok": true
+},
+{
+"i": 158,
+"pred": "34",
+"gold": "34",
+"ok": true
+},
+{
+"i": 159,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 160,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 161,
+"pred": "32",
+"gold": "32",
+"ok": true
+},
+{
+"i": 162,
+"pred": "92",
+"gold": "92",
+"ok": true
+},
+{
+"i": 163,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 164,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 165,
+"pred": "77",
+"gold": "77",
+"ok": true
+},
+{
+"i": 166,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 167,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 168,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 169,
+"pred": "120",
+"gold": "120",
+"ok": true
+},
+{
+"i": 170,
+"pred": "150",
+"gold": "150",
+"ok": true
+},
+{
+"i": 171,
+"pred": "1210",
+"gold": "1210",
+"ok": true
+},
+{
+"i": 172,
+"pred": "51",
+"gold": "51",
+"ok": true
+},
+{
+"i": 173,
+"pred": "18000",
+"gold": "18000",
+"ok": true
+},
+{
+"i": 174,
+"pred": "95",
+"gold": "95",
+"ok": true
+},
+{
+"i": 175,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 176,
+"pred": "100",
+"gold": "100",
+"ok": true
+},
+{
+"i": 177,
+"pred": "350",
+"gold": "350",
+"ok": true
+},
+{
+"i": 178,
+"pred": "122",
+"gold": "122",
+"ok": true
+},
+{
+"i": 179,
+"pred": "130",
+"gold": "130",
+"ok": true
+},
+{
+"i": 180,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 181,
+"pred": "160",
+"gold": "160",
+"ok": true
+},
+{
+"i": 182,
+"pred": "23",
+"gold": "23",
+"ok": true
+},
+{
+"i": 183,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 184,
+"pred": "100",
+"gold": "25",
+"ok": false
+},
+{
+"i": 185,
+"pred": "30",
+"gold": "30",
+"ok": true
+},
+{
+"i": 186,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 187,
+"pred": "106.12",
+"gold": "106",
+"ok": false
+},
+{
+"i": 188,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 189,
+"pred": "34",
+"gold": "34",
+"ok": true
+},
+{
+"i": 190,
+"pred": "360",
+"gold": "360",
+"ok": true
+},
+{
+"i": 191,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 192,
+"pred": "91",
+"gold": "91",
+"ok": true
+},
+{
+"i": 193,
+"pred": "24",
+"gold": "24",
+"ok": true
+},
+{
+"i": 194,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 195,
+"pred": "12",
+"gold": "12",
+"ok": true
+},
+{
+"i": 196,
+"pred": "120",
+"gold": "120",
+"ok": true
+},
+{
+"i": 197,
+"pred": "6277",
+"gold": "6277",
+"ok": true
+},
+{
+"i": 198,
+"pred": "320",
+"gold": "320",
+"ok": true
+},
+{
+"i": 199,
+"pred": "7500",
+"gold": "7500",
+"ok": true
+},
+{
+"i": 200,
+"pred": "55",
+"gold": "55",
+"ok": true
+},
+{
+"i": 201,
+"pred": "114200",
+"gold": "114200",
+"ok": true
+},
+{
+"i": 202,
+"pred": "100",
+"gold": "100",
+"ok": true
+},
+{
+"i": 203,
+"pred": "31",
+"gold": "31",
+"ok": true
+},
+{
+"i": 204,
+"pred": "98",
+"gold": "98",
+"ok": true
+},
+{
+"i": 205,
+"pred": "92",
+"gold": "98",
+"ok": false
+},
+{
+"i": 206,
+"pred": "860",
+"gold": "860",
+"ok": true
+},
+{
+"i": 207,
+"pred": "2600",
+"gold": "2600",
+"ok": true
+},
+{
+"i": 208,
+"pred": "76",
+"gold": "76",
+"ok": true
+},
+{
+"i": 209,
+"pred": "145",
+"gold": "145",
+"ok": true
+},
+{
+"i": 210,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 211,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 212,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 213,
+"pred": "250",
+"gold": "250",
+"ok": true
+},
+{
+"i": 214,
+"pred": "24",
+"gold": "8",
+"ok": false
+},
+{
+"i": 215,
+"pred": "44",
+"gold": "44",
+"ok": true
+},
+{
+"i": 216,
+"pred": "220",
+"gold": "220",
+"ok": true
+},
+{
+"i": 217,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 218,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 219,
+"pred": "54",
+"gold": "54",
+"ok": true
+},
+{
+"i": 220,
+"pred": "70",
+"gold": "70",
+"ok": true
+},
+{
+"i": 221,
+"pred": "90",
+"gold": "90",
+"ok": true
+},
+{
+"i": 222,
+"pred": "140",
+"gold": "140",
+"ok": true
+},
+{
+"i": 223,
+"pred": "20000",
+"gold": "20000",
+"ok": true
+},
+{
+"i": 224,
+"pred": "180",
+"gold": "180",
+"ok": true
+},
+{
+"i": 225,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 226,
+"pred": "33",
+"gold": "33",
+"ok": true
+},
+{
+"i": 227,
+"pred": "9.00",
+"gold": "9",
+"ok": true
+},
+{
+"i": 228,
+"pred": "1",
+"gold": "1",
+"ok": true
+},
+{
+"i": 229,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 230,
+"pred": "276000",
+"gold": "276000",
+"ok": true
+},
+{
+"i": 231,
+"pred": "75",
+"gold": "50",
+"ok": false
+},
+{
+"i": 232,
+"pred": "75",
+"gold": "75",
+"ok": true
+},
+{
+"i": 233,
+"pred": "12",
+"gold": "12",
+"ok": true
+},
+{
+"i": 234,
+"pred": "14",
+"gold": "21",
+"ok": false
+},
+{
+"i": 235,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 236,
+"pred": "31",
+"gold": "31",
+"ok": true
+},
+{
+"i": 237,
+"pred": "90",
+"gold": "90",
+"ok": true
+},
+{
+"i": 238,
+"pred": "68",
+"gold": "68",
+"ok": true
+},
+{
+"i": 239,
+"pred": "280",
+"gold": "280",
+"ok": true
+},
+{
+"i": 240,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 241,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 242,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 243,
+"pred": "250",
+"gold": "250",
+"ok": true
+},
+{
+"i": 244,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 245,
+"pred": "7",
+"gold": "7",
+"ok": true
+},
+{
+"i": 246,
+"pred": "27000",
+"gold": "27000",
+"ok": true
+},
+{
+"i": 247,
+"pred": "32",
+"gold": "32",
+"ok": true
+},
+{
+"i": 248,
+"pred": "300",
+"gold": "300",
+"ok": true
+},
+{
+"i": 249,
+"pred": "5600",
+"gold": "5600",
+"ok": true
+},
+{
+"i": 250,
+"pred": "17",
+"gold": "17",
+"ok": true
+},
+{
+"i": 251,
+"pred": "70",
+"gold": "70",
+"ok": true
+},
+{
+"i": 252,
+"pred": "73",
+"gold": "73",
+"ok": true
+},
+{
+"i": 253,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 254,
+"pred": "84",
+"gold": "84",
+"ok": true
+},
+{
+"i": 255,
+"pred": "10",
+"gold": "192",
+"ok": false
+},
+{
+"i": 256,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 257,
+"pred": "5600",
+"gold": "5600",
+"ok": true
+},
+{
+"i": 258,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 259,
+"pred": "168",
+"gold": "168",
+"ok": true
+},
+{
+"i": 260,
+"pred": "11",
+"gold": "11",
+"ok": true
+},
+{
+"i": 261,
+"pred": "62",
+"gold": "62",
+"ok": true
+},
+{
+"i": 262,
+"pred": "270",
+"gold": "270",
+"ok": true
+},
+{
+"i": 263,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 264,
+"pred": "400",
+"gold": "400",
+"ok": true
+},
+{
+"i": 265,
+"pred": "9500",
+"gold": "9500",
+"ok": true
+},
+{
+"i": 266,
+"pred": "118000",
+"gold": "118000",
+"ok": true
+},
+{
+"i": 267,
+"pred": "91",
+"gold": "91",
+"ok": true
+},
+{
+"i": 268,
+"pred": "1375",
+"gold": "1375",
+"ok": true
+},
+{
+"i": 269,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 270,
+"pred": "762",
+"gold": "762",
+"ok": true
+},
+{
+"i": 271,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 272,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 273,
+"pred": "315",
+"gold": "315",
+"ok": true
+},
+{
+"i": 274,
+"pred": "3200",
+"gold": "3200",
+"ok": true
+},
+{
+"i": 275,
+"pred": "138",
+"gold": "138",
+"ok": true
+},
+{
+"i": 276,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 277,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 278,
+"pred": "40",
+"gold": "40",
+"ok": true
+},
+{
+"i": 279,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 280,
+"pred": "7",
+"gold": "7",
+"ok": true
+},
+{
+"i": 281,
+"pred": "2450",
+"gold": "2450",
+"ok": true
+},
+{
+"i": 282,
+"pred": "195",
+"gold": "195",
+"ok": true
+},
+{
+"i": 283,
+"pred": "68",
+"gold": "68",
+"ok": true
+},
+{
+"i": 284,
+"pred": "360",
+"gold": "360",
+"ok": true
+},
+{
+"i": 285,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 286,
+"pred": "90",
+"gold": "90",
+"ok": true
+},
+{
+"i": 287,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 288,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 289,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 290,
+"pred": "390",
+"gold": "390",
+"ok": true
+},
+{
+"i": 291,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 292,
+"pred": "75",
+"gold": "75",
+"ok": true
+},
+{
+"i": 293,
+"pred": "83",
+"gold": "83",
+"ok": true
+},
+{
+"i": 294,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 295,
+"pred": "370",
+"gold": "370",
+"ok": true
+},
+{
+"i": 296,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 297,
+"pred": "55",
+"gold": "55",
+"ok": true
+},
+{
+"i": 298,
+"pred": "5",
+"gold": "500",
+"ok": false
+},
+{
+"i": 299,
+"pred": "31800",
+"gold": "31800",
+"ok": true
+},
+{
+"i": 300,
+"pred": "78",
+"gold": "78",
+"ok": true
+},
+{
+"i": 301,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 302,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 303,
+"pred": "1300",
+"gold": "1300",
+"ok": true
+},
+{
+"i": 304,
+"pred": "2",
+"gold": "3200",
+"ok": false
+},
+{
+"i": 305,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 306,
+"pred": "5",
+"gold": "10",
+"ok": false
+},
+{
+"i": 307,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 308,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 309,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 310,
+"pred": "2050",
+"gold": "2050",
+"ok": true
+},
+{
+"i": 311,
+"pred": "91",
+"gold": "91",
+"ok": true
+},
+{
+"i": 312,
+"pred": "32",
+"gold": "32",
+"ok": true
+},
+{
+"i": 313,
+"pred": "120000",
+"gold": "120000",
+"ok": true
+},
+{
+"i": 314,
+"pred": "30",
+"gold": "30",
+"ok": true
+},
+{
+"i": 315,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 316,
+"pred": "156",
+"gold": "156",
+"ok": true
+},
+{
+"i": 317,
+"pred": "12",
+"gold": "12",
+"ok": true
+},
+{
+"i": 318,
+"pred": "123",
+"gold": "123",
+"ok": true
+},
+{
+"i": 319,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 320,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 321,
+"pred": "1",
+"gold": "1",
+"ok": true
+},
+{
+"i": 322,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 323,
+"pred": "75",
+"gold": "75",
+"ok": true
+},
+{
+"i": 324,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 325,
+"pred": "224000",
+"gold": "224000",
+"ok": true
+},
+{
+"i": 326,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 327,
+"pred": "31",
+"gold": "31",
+"ok": true
+},
+{
+"i": 328,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 329,
+"pred": "14",
+"gold": "14",
+"ok": true
+},
+{
+"i": 330,
+"pred": "31",
+"gold": "31",
+"ok": true
+},
+{
+"i": 331,
+"pred": "42",
+"gold": "8400",
+"ok": false
+},
+{
+"i": 332,
+"pred": "44",
+"gold": "44",
+"ok": true
+},
+{
+"i": 333,
+"pred": "100",
+"gold": "100",
+"ok": true
+},
+{
+"i": 334,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 335,
+"pred": "310",
+"gold": "310",
+"ok": true
+},
+{
+"i": 336,
+"pred": "72",
+"gold": "72",
+"ok": true
+},
+{
+"i": 337,
+"pred": "1",
+"gold": "1",
+"ok": true
+},
+{
+"i": 338,
+"pred": "60",
+"gold": "60",
+"ok": true
+},
+{
+"i": 339,
+"pred": "160",
+"gold": "160",
+"ok": true
+},
+{
+"i": 340,
+"pred": "3",
+"gold": "4",
+"ok": false
+},
+{
+"i": 341,
+"pred": "260",
+"gold": "260",
+"ok": true
+},
+{
+"i": 342,
+"pred": "87",
+"gold": "87",
+"ok": true
+},
+{
+"i": 343,
+"pred": "180000",
+"gold": "180000",
+"ok": true
+},
+{
+"i": 344,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 345,
+"pred": "310",
+"gold": "310",
+"ok": true
+},
+{
+"i": 346,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 347,
+"pred": "36",
+"gold": "36",
+"ok": true
+},
+{
+"i": 348,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 349,
+"pred": "2640",
+"gold": "2640",
+"ok": true
+},
+{
+"i": 350,
+"pred": "8",
+"gold": "8",
+"ok": true
+},
+{
+"i": 351,
+"pred": "10",
+"gold": "10",
+"ok": true
+},
+{
+"i": 352,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 353,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 354,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 355,
+"pred": "34",
+"gold": "34",
+"ok": true
+},
+{
+"i": 356,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 357,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 358,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 359,
+"pred": "4",
+"gold": "4",
+"ok": true
+},
+{
+"i": 360,
+"pred": "25",
+"gold": "25",
+"ok": true
+},
+{
+"i": 361,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 362,
+"pred": "23",
+"gold": "23",
+"ok": true
+},
+{
+"i": 363,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 364,
+"pred": "49",
+"gold": "49",
+"ok": true
+},
+{
+"i": 365,
+"pred": "18",
+"gold": "18",
+"ok": true
+},
+{
+"i": 366,
+"pred": "9",
+"gold": "9",
+"ok": true
+},
+{
+"i": 367,
+"pred": "19",
+"gold": "19",
+"ok": true
+},
+{
+"i": 368,
+"pred": "10",
+"gold": "18",
+"ok": false
+},
+{
+"i": 369,
+"pred": "1198",
+"gold": "1198",
+"ok": true
+},
+{
+"i": 370,
+"pred": "320",
+"gold": "320",
+"ok": true
+},
+{
+"i": 371,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 372,
+"pred": "5",
+"gold": "5",
+"ok": true
+},
+{
+"i": 373,
+"pred": "240000",
+"gold": "240000",
+"ok": true
+},
+{
+"i": 374,
+"pred": "45",
+"gold": "45",
+"ok": true
+},
+{
+"i": 375,
+"pred": "48",
+"gold": "48",
+"ok": true
+},
+{
+"i": 376,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 377,
+"pred": "50",
+"gold": "50",
+"ok": true
+},
+{
+"i": 378,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 379,
+"pred": "21",
+"gold": "21",
+"ok": true
+},
+{
+"i": 380,
+"pred": "760.42",
+"gold": "803",
+"ok": false
+},
+{
+"i": 381,
+"pred": "67",
+"gold": "67",
+"ok": true
+},
+{
+"i": 382,
+"pred": "350",
+"gold": "350",
+"ok": true
+},
+{
+"i": 383,
+"pred": "2",
+"gold": "2",
+"ok": true
+},
+{
+"i": 384,
+"pred": "32",
+"gold": "32",
+"ok": true
+},
+{
+"i": 385,
+"pred": "16",
+"gold": "16",
+"ok": true
+},
+{
+"i": 386,
+"pred": "80",
+"gold": "80",
+"ok": true
+},
+{
+"i": 387,
+"pred": "36",
+"gold": "36",
+"ok": true
+},
+{
+"i": 388,
+"pred": "88",
+"gold": "88",
+"ok": true
+},
+{
+"i": 389,
+"pred": "6",
+"gold": "6",
+"ok": true
+},
+{
+"i": 390,
+"pred": "12",
+"gold": "12",
+"ok": true
+},
+{
+"i": 391,
+"pred": "15",
+"gold": "15",
+"ok": true
+},
+{
+"i": 392,
+"pred": "34",
+"gold": "34",
+"ok": true
+},
+{
+"i": 393,
+"pred": "20",
+"gold": "20",
+"ok": true
+},
+{
+"i": 394,
+"pred": "92",
+"gold": "92",
+"ok": true
+},
+{
+"i": 395,
+"pred": "38",
+"gold": "38",
+"ok": true
+},
+{
+"i": 396,
+"pred": "3",
+"gold": "3",
+"ok": true
+},
+{
+"i": 397,
+"pred": "25",
+"gold": "25",
+"ok": true
+},
+{
+"i": 398,
+"pred": "168",
+"gold": "168",
+"ok": true
+},
+{
+"i": 399,
+"pred": "12",
+"gold": "12",
+"ok": true
+}
+]
+}

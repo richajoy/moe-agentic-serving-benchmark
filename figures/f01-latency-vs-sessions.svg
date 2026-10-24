@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" role="img" aria-labelledby="title desc">
+<title id="title">Agentic TTFT p90 and ITL p90 as concurrent sessions grow, three layouts</title>
+<desc id="desc">Two log-scale panels. TTFT p90 in seconds and ITL p90 in milliseconds versus 16 to 1,000 concurrent agentic sessions on one 8x H100 node. Markers are p90; thin bars span p50 to p99. At 64 sessions every layout is inside the SLO (TP8+EP8 BF16 KV: TTFT p90 0.85 s, ITL p90 25.6 ms). At 256 sessions every layout misses it at p90; FP8 KV comes closest (TTFT p90 4.1 s, ITL p90 56.4 ms). At 1,000 sessions TTFT p90 is 72.5 s or more and ITL p90 265 ms or more, and both runs are lower bounds.</desc>
+<!--
+Data sources (every number in this figure is read from these files):
+  data/points.json rows: vllm-tp8/AG-c16-t4, vllm-tp8/AG-c64-t8, vllm-tp8/AG-c256-t8, vllm-tp8-matrix/AG-c512-t8, vllm-tp8-matrix/AG-c1000-t8, vllm-tp8ep8/AG-c64-t8, vllm-tp8ep8/AG-c256-t8, vllm-tp8ep8-fp8kv/AG-c256-t8, vllm-tp8ep8-fp8kv/AG-c1000-t8
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="470"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >Latency vs load: the SLO holds at 64 sessions and breaks by 256</text>
+<text x="24.0" y="52.0" class="mut" text-anchor="start" >Agentic sessions (2,000-token shared prompt, +600 in / 200 out per turn, 8 ± 2 turns). Marker = p90, bar = p50 to p99.</text>
+<text x="80.0" y="86.0" class="ink h" text-anchor="start" >TTFT p90 (s)</text>
+<line x1="80.0" y1="349.6" x2="440.0" y2="349.6" class="grid" stroke-width="1.0" />
+<text x="74.0" y="353.6" class="mut s" text-anchor="end" >0.2</text>
+<line x1="80.0" y1="316.5" x2="440.0" y2="316.5" class="grid" stroke-width="1.0" />
+<text x="74.0" y="320.5" class="mut s" text-anchor="end" >0.5</text>
+<line x1="80.0" y1="291.4" x2="440.0" y2="291.4" class="grid" stroke-width="1.0" />
+<text x="74.0" y="295.4" class="mut s" text-anchor="end" >1</text>
+<line x1="80.0" y1="266.4" x2="440.0" y2="266.4" class="grid" stroke-width="1.0" />
+<text x="74.0" y="270.4" class="mut s" text-anchor="end" >2</text>
+<line x1="80.0" y1="233.3" x2="440.0" y2="233.3" class="grid" stroke-width="1.0" />
+<text x="74.0" y="237.3" class="mut s" text-anchor="end" >5</text>
+<line x1="80.0" y1="208.2" x2="440.0" y2="208.2" class="grid" stroke-width="1.0" />
+<text x="74.0" y="212.2" class="mut s" text-anchor="end" >10</text>
+<line x1="80.0" y1="183.2" x2="440.0" y2="183.2" class="grid" stroke-width="1.0" />
+<text x="74.0" y="187.2" class="mut s" text-anchor="end" >20</text>
+<line x1="80.0" y1="150.1" x2="440.0" y2="150.1" class="grid" stroke-width="1.0" />
+<text x="74.0" y="154.1" class="mut s" text-anchor="end" >50</text>
+<line x1="80.0" y1="125.0" x2="440.0" y2="125.0" class="grid" stroke-width="1.0" />
+<text x="74.0" y="129.0" class="mut s" text-anchor="end" >100</text>
+<line x1="80.0" y1="100.0" x2="440.0" y2="100.0" class="grid" stroke-width="1.0" />
+<text x="74.0" y="104.0" class="mut s" text-anchor="end" >200</text>
+<line x1="110.9" y1="360.0" x2="110.9" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="110.9" y="378.0" class="mut s" text-anchor="middle" >16</text>
+<line x1="211.5" y1="360.0" x2="211.5" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="211.5" y="378.0" class="mut s" text-anchor="middle" >64</text>
+<line x1="312.1" y1="360.0" x2="312.1" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="312.1" y="378.0" class="mut s" text-anchor="middle" >256</text>
+<line x1="362.4" y1="360.0" x2="362.4" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="362.4" y="378.0" class="mut s" text-anchor="middle" >512</text>
+<line x1="411.0" y1="360.0" x2="411.0" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="411.0" y="378.0" class="mut s" text-anchor="middle" >1,000</text>
+<line x1="80.0" y1="360.0" x2="440.0" y2="360.0" class="axis" stroke-width="1.0" />
+<rect x="80.0" y="266.4" width="360.0" height="93.6" rx="0" class="ok" />
+<line x1="80.0" y1="266.4" x2="440.0" y2="266.4" class="sr" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="436.0" y="260.4" class="cr s" text-anchor="end" >SLO 2 s</text>
+<line x1="101.9" y1="338.1" x2="101.9" y2="282.2" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="202.5" y1="298.9" x2="202.5" y2="273.9" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="303.1" y1="234.7" x2="303.1" y2="160.0" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="353.4" y1="171.1" x2="353.4" y2="137.6" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="402.0" y1="149.4" x2="402.0" y2="119.3" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s1" points="101.9,320.3 202.5,284.4 303.1,187.1 353.4,142.0 402.0,125.3"/>
+<circle cx="101.9" cy="320.3" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="202.5" cy="284.4" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="303.1" cy="187.1" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="353.4" cy="142.0" r="5.5" class="hollow s1" stroke-width="2"/>
+<circle cx="402.0" cy="125.3" r="5.5" class="hollow s1" stroke-width="2"/>
+<line x1="211.5" y1="312.1" x2="211.5" y2="276.3" class="s2" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="312.1" y1="247.8" x2="312.1" y2="170.5" class="s2" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s2" points="211.5,297.3 312.1,196.2"/>
+<rect x="206.0" y="291.8" width="11.0" height="11.0" class="c2 s2" stroke-width="2"/>
+<rect x="306.6" y="190.7" width="11.0" height="11.0" class="c2 s2" stroke-width="2"/>
+<line x1="321.1" y1="265.3" x2="321.1" y2="231.1" class="s3" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="420.0" y1="181.5" x2="420.0" y2="131.6" class="s3" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s3" points="321.1,240.4 420.0,136.6"/>
+<path d="M321.1,234.1 L327.4,245.5 L314.8,245.5 Z" class="c3 s3" stroke-width="2"/>
+<path d="M420.0,130.3 L426.3,141.7 L413.6,141.7 Z" class="hollow s3" stroke-width="2"/>
+<text x="260.0" y="396.0" class="mut s" text-anchor="middle" >concurrent agentic sessions (log scale)</text>
+<text x="560.0" y="86.0" class="ink h" text-anchor="start" >ITL p90 (ms)</text>
+<line x1="560.0" y1="343.5" x2="920.0" y2="343.5" class="grid" stroke-width="1.0" />
+<text x="554.0" y="347.5" class="mut s" text-anchor="end" >15</text>
+<line x1="560.0" y1="322.1" x2="920.0" y2="322.1" class="grid" stroke-width="1.0" />
+<text x="554.0" y="326.1" class="mut s" text-anchor="end" >20</text>
+<line x1="560.0" y1="292.1" x2="920.0" y2="292.1" class="grid" stroke-width="1.0" />
+<text x="554.0" y="296.1" class="mut s" text-anchor="end" >30</text>
+<line x1="560.0" y1="254.2" x2="920.0" y2="254.2" class="grid" stroke-width="1.0" />
+<text x="554.0" y="258.2" class="mut s" text-anchor="end" >50</text>
+<line x1="560.0" y1="202.8" x2="920.0" y2="202.8" class="grid" stroke-width="1.0" />
+<text x="554.0" y="206.8" class="mut s" text-anchor="end" >100</text>
+<line x1="560.0" y1="151.4" x2="920.0" y2="151.4" class="grid" stroke-width="1.0" />
+<text x="554.0" y="155.4" class="mut s" text-anchor="end" >200</text>
+<line x1="560.0" y1="100.0" x2="920.0" y2="100.0" class="grid" stroke-width="1.0" />
+<text x="554.0" y="104.0" class="mut s" text-anchor="end" >400</text>
+<line x1="590.9" y1="360.0" x2="590.9" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="590.9" y="378.0" class="mut s" text-anchor="middle" >16</text>
+<line x1="691.5" y1="360.0" x2="691.5" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="691.5" y="378.0" class="mut s" text-anchor="middle" >64</text>
+<line x1="792.1" y1="360.0" x2="792.1" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="792.1" y="378.0" class="mut s" text-anchor="middle" >256</text>
+<line x1="842.4" y1="360.0" x2="842.4" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="842.4" y="378.0" class="mut s" text-anchor="middle" >512</text>
+<line x1="891.0" y1="360.0" x2="891.0" y2="364.0" class="axis" stroke-width="1.0" />
+<text x="891.0" y="378.0" class="mut s" text-anchor="middle" >1,000</text>
+<line x1="560.0" y1="360.0" x2="920.0" y2="360.0" class="axis" stroke-width="1.0" />
+<rect x="560.0" y="254.2" width="360.0" height="105.8" rx="0" class="ok" />
+<line x1="560.0" y1="254.2" x2="920.0" y2="254.2" class="sr" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="916.0" y="248.2" class="cr s" text-anchor="end" >SLO 50 ms</text>
+<line x1="581.9" y1="336.4" x2="581.9" y2="318.9" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="682.5" y1="313.4" x2="682.5" y2="294.6" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="783.1" y1="224.8" x2="783.1" y2="145.1" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="833.4" y1="146.3" x2="833.4" y2="143.9" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="882.0" y1="141.0" x2="882.0" y2="129.5" class="s1" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s1" points="581.9,324.8 682.5,300.6 783.1,145.7 833.4,145.3 882.0,130.5"/>
+<circle cx="581.9" cy="324.8" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="682.5" cy="300.6" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="783.1" cy="145.7" r="5.5" class="c1 s1" stroke-width="2"/>
+<circle cx="833.4" cy="145.3" r="5.5" class="hollow s1" stroke-width="2"/>
+<circle cx="882.0" cy="130.5" r="5.5" class="hollow s1" stroke-width="2"/>
+<line x1="691.5" y1="314.1" x2="691.5" y2="298.2" class="s2" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="792.1" y1="244.2" x2="792.1" y2="165.0" class="s2" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s2" points="691.5,303.7 792.1,165.9"/>
+<rect x="686.0" y="298.2" width="11.0" height="11.0" class="c2 s2" stroke-width="2"/>
+<rect x="786.6" y="160.4" width="11.0" height="11.0" class="c2 s2" stroke-width="2"/>
+<line x1="801.1" y1="261.9" x2="801.1" y2="239.4" class="s3" stroke-width="2.2" stroke-opacity=".45"/>
+<line x1="900.0" y1="132.9" x2="900.0" y2="126.5" class="s3" stroke-width="2.2" stroke-opacity=".45"/>
+<polyline fill="none" stroke-width="1.6" class="s3" points="801.1,245.3 900.0,126.8"/>
+<path d="M801.1,239.0 L807.4,250.3 L794.8,250.3 Z" class="c3 s3" stroke-width="2"/>
+<path d="M900.0,120.5 L906.3,131.9 L893.6,131.9 Z" class="hollow s3" stroke-width="2"/>
+<text x="740.0" y="396.0" class="mut s" text-anchor="middle" >concurrent agentic sessions (log scale)</text>
+<circle cx="80.0" cy="426.0" r="5" class="c1 s1" stroke-width="2"/>
+<text x="92.0" y="430.0" class="ink s" text-anchor="start" >TP8, BF16 KV</text>
+<rect x="265.0" y="421.0" width="10" height="10" class="c2 s2" stroke-width="2"/>
+<text x="282.0" y="430.0" class="ink s" text-anchor="start" >TP8+EP8, BF16 KV</text>
+<path d="M460.0,420.2 L465.8,430.6 L454.2,430.6 Z" class="c3 s3" stroke-width="2"/>
+<text x="472.0" y="430.0" class="ink s" text-anchor="start" >TP8+EP8, FP8 KV</text>
+<circle cx="650.0" cy="426.0" r="5" class="hollow s1" stroke-width="2"/>
+<text x="662.0" y="430.0" class="mut s" text-anchor="start" >hollow = stopped at time cap (lower bound)</text>
+<text x="24.0" y="458.0" class="faint xs" text-anchor="start" >16 sessions used 4-turn sessions. Qwen3-235B-A22B-Instruct-2507 FP8 | one node, 8x H100 SXM5 | Dynamo 1.6.0 | single run per point.</text>
+</svg>

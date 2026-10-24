@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-labelledby="title desc">
+<title id="title">Measured prefix-cache hit rate versus the ideal for each agentic point</title>
+<desc id="desc">One row per agentic point. A tick marks the ideal hit rate for the session length (84.2% for 4 turns, 88.9% for 8, 94.1% for 20) and a dot marks the measured value. While the KV pool has room the measured hit matches the ideal (84.0 to 94.4%). When the pool is full, when a data-parallel balancer scatters a session's turns, or when both P/D pools evict at 256 sessions, it falls to 37.6 to 71.4%.</desc>
+<!--
+Data sources (every number in this figure is read from these files):
+  data/points.json hit_pct, kv_max for: vllm-tp8/AG-c16-t4, vllm-tp8/AG-c64-t8, vllm-tp8ep8/AG-c64-t8, trtllm-tp8ep8/AG-c64-t8, vllm-pd-1p1d-fp8kv/AG-c64-t8, vllm-tp8-matrix/AG-c64-t20, vllm-tp8ep8-fp8kv/AG-c256-t8, vllm-dp8ep8-kvrouter/AG-c64-t8, vllm-dp8ep8/AG-c64-t8, vllm-pd-1p1d/AG-c64-t8, vllm-tp8ep8/AG-c256-t8, trtllm-tp8ep8/AG-c256-t8, vllm-tp8/AG-c256-t8, vllm-tp8ep8-fp8kv/AG-c1000-t8, vllm-tp8-matrix/AG-c1000-t8, vllm-pd-1p1d-fp8kv/AG-c256-t8, vllm-dp8ep8/AG-c256-t8
+  Ideal: 1 - 600n / (sum of n turn inputs), docs/00-method.md
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="540"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >Prefix-cache hit vs the ideal: at the ceiling while KV fits, about half once it does not</text>
+<text x="24.0" y="52.0" class="mut" text-anchor="start" >Dot = measured hit (filled: KV pool had room, peak use &lt; 0.99; hollow: pool full). Tick = ideal for that session length.</text>
+<line x1="330.0" y1="88.0" x2="330.0" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="330.0" y="480.0" class="mut s" text-anchor="middle" >30%</text>
+<line x1="402.9" y1="88.0" x2="402.9" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="402.9" y="480.0" class="mut s" text-anchor="middle" >40%</text>
+<line x1="475.7" y1="88.0" x2="475.7" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="475.7" y="480.0" class="mut s" text-anchor="middle" >50%</text>
+<line x1="548.6" y1="88.0" x2="548.6" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="548.6" y="480.0" class="mut s" text-anchor="middle" >60%</text>
+<line x1="621.4" y1="88.0" x2="621.4" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="621.4" y="480.0" class="mut s" text-anchor="middle" >70%</text>
+<line x1="694.3" y1="88.0" x2="694.3" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="694.3" y="480.0" class="mut s" text-anchor="middle" >80%</text>
+<line x1="767.1" y1="88.0" x2="767.1" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="767.1" y="480.0" class="mut s" text-anchor="middle" >90%</text>
+<line x1="840.0" y1="88.0" x2="840.0" y2="464.0" class="grid" stroke-width="1.0" />
+<text x="840.0" y="480.0" class="mut s" text-anchor="middle" >100%</text>
+<text x="850.0" y="80.0" class="mut s" text-anchor="start" >KV peak</text>
+<text x="320.0" y="100.0" class="ink s" text-anchor="end" >TP8, c16 (4 turns)</text>
+<line x1="723.4" y1="96.0" x2="724.9" y2="96.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="724.9" y1="88.0" x2="724.9" y2="104.0" class="sm" stroke-width="2.2" />
+<circle cx="723.4" cy="96.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="713.4" y="89.0" class="ink xs" text-anchor="end" >84.0</text>
+<text x="852.0" y="100.0" class="mut s" text-anchor="start" >0.06</text>
+<text x="320.0" y="122.0" class="ink s" text-anchor="end" >TP8, c64</text>
+<line x1="755.6" y1="118.0" x2="759.1" y2="118.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="110.0" x2="759.1" y2="126.0" class="sm" stroke-width="2.2" />
+<circle cx="755.6" cy="118.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="745.6" y="111.0" class="ink xs" text-anchor="end" >88.4</text>
+<text x="852.0" y="122.0" class="mut s" text-anchor="start" >0.37</text>
+<text x="320.0" y="144.0" class="ink s" text-anchor="end" >TP8+EP8, c64</text>
+<line x1="753.7" y1="140.0" x2="759.1" y2="140.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="132.0" x2="759.1" y2="148.0" class="sm" stroke-width="2.2" />
+<circle cx="753.7" cy="140.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="743.7" y="133.0" class="ink xs" text-anchor="end" >88.2</text>
+<text x="852.0" y="144.0" class="mut s" text-anchor="start" >0.37</text>
+<text x="320.0" y="166.0" class="ink s" text-anchor="end" >TRT-LLM TP8+EP8, c64 (blocks)</text>
+<line x1="757.8" y1="162.0" x2="759.1" y2="162.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="154.0" x2="759.1" y2="170.0" class="sm" stroke-width="2.2" />
+<circle cx="757.8" cy="162.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="747.8" y="155.0" class="ink xs" text-anchor="end" >88.7</text>
+<text x="852.0" y="166.0" class="mut s" text-anchor="start" >0.39</text>
+<text x="320.0" y="188.0" class="ink s" text-anchor="end" >P/D FP8 KV, c64</text>
+<line x1="742.6" y1="184.0" x2="759.1" y2="184.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="176.0" x2="759.1" y2="192.0" class="sm" stroke-width="2.2" />
+<circle cx="742.6" cy="184.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="732.6" y="177.0" class="ink xs" text-anchor="end" >86.6</text>
+<text x="852.0" y="188.0" class="mut s" text-anchor="start" >0.53</text>
+<text x="320.0" y="210.0" class="ink s" text-anchor="end" >TP8, c64 (20 turns)</text>
+<line x1="797.0" y1="206.0" x2="799.4" y2="206.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="797.0" y1="198.0" x2="797.0" y2="214.0" class="sm" stroke-width="2.2" />
+<circle cx="799.4" cy="206.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="809.4" y="199.0" class="ink xs" text-anchor="start" >94.4</text>
+<text x="852.0" y="210.0" class="mut s" text-anchor="start" >0.85</text>
+<text x="320.0" y="232.0" class="ink s" text-anchor="end" >TP8+EP8 FP8 KV, c256</text>
+<line x1="759.1" y1="228.0" x2="759.9" y2="228.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="220.0" x2="759.1" y2="236.0" class="sm" stroke-width="2.2" />
+<circle cx="759.9" cy="228.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="769.9" y="221.0" class="ink xs" text-anchor="start" >89.0</text>
+<text x="852.0" y="232.0" class="mut s" text-anchor="start" >0.70</text>
+<text x="320.0" y="254.0" class="ink s" text-anchor="end" >DP8+EP8 + KV router, c64</text>
+<line x1="621.2" y1="250.0" x2="759.1" y2="250.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="242.0" x2="759.1" y2="258.0" class="sm" stroke-width="2.2" />
+<circle cx="621.2" cy="250.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="611.2" y="243.0" class="ink xs" text-anchor="end" >70.0</text>
+<text x="852.0" y="254.0" class="mut s" text-anchor="start" >0.51</text>
+<text x="320.0" y="276.0" class="ink s" text-anchor="end" >DP8+EP8 internal balancer, c64</text>
+<line x1="469.8" y1="272.0" x2="759.1" y2="272.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="264.0" x2="759.1" y2="280.0" class="sm" stroke-width="2.2" />
+<circle cx="469.8" cy="272.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="459.8" y="265.0" class="ink xs" text-anchor="end" >49.2</text>
+<text x="852.0" y="276.0" class="mut s" text-anchor="start" >0.51</text>
+<text x="320.0" y="298.0" class="ink s" text-anchor="end" >P/D BF16 KV, c64</text>
+<line x1="631.5" y1="294.0" x2="759.1" y2="294.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="286.0" x2="759.1" y2="302.0" class="sm" stroke-width="2.2" />
+<circle cx="631.5" cy="294.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="621.5" y="287.0" class="ink xs" text-anchor="end" >71.4</text>
+<text x="852.0" y="298.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="320.0" y="320.0" class="ink s" text-anchor="end" >TP8+EP8 BF16 KV, c256</text>
+<line x1="526.5" y1="316.0" x2="759.1" y2="316.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="308.0" x2="759.1" y2="324.0" class="sm" stroke-width="2.2" />
+<circle cx="526.5" cy="316.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="516.5" y="309.0" class="ink xs" text-anchor="end" >57.0</text>
+<text x="852.0" y="320.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="320.0" y="342.0" class="ink s" text-anchor="end" >TRT-LLM TP8+EP8, c256 (blocks)</text>
+<line x1="510.7" y1="338.0" x2="759.1" y2="338.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="330.0" x2="759.1" y2="346.0" class="sm" stroke-width="2.2" />
+<circle cx="510.7" cy="338.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="500.7" y="331.0" class="ink xs" text-anchor="end" >54.8</text>
+<text x="852.0" y="342.0" class="mut s" text-anchor="start" >0.99</text>
+<text x="320.0" y="364.0" class="ink s" text-anchor="end" >TP8, c256</text>
+<line x1="490.0" y1="360.0" x2="759.1" y2="360.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="352.0" x2="759.1" y2="368.0" class="sm" stroke-width="2.2" />
+<circle cx="490.0" cy="360.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="480.0" y="353.0" class="ink xs" text-anchor="end" >52.0</text>
+<text x="852.0" y="364.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="320.0" y="386.0" class="ink s" text-anchor="end" >TP8+EP8 FP8 KV, c1000</text>
+<line x1="486.9" y1="382.0" x2="759.1" y2="382.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="374.0" x2="759.1" y2="390.0" class="sm" stroke-width="2.2" />
+<circle cx="486.9" cy="382.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="476.9" y="375.0" class="ink xs" text-anchor="end" >51.5</text>
+<text x="852.0" y="386.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="320.0" y="408.0" class="ink s" text-anchor="end" >TP8, c1000</text>
+<line x1="481.9" y1="404.0" x2="759.1" y2="404.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="396.0" x2="759.1" y2="412.0" class="sm" stroke-width="2.2" />
+<circle cx="481.9" cy="404.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="471.9" y="397.0" class="ink xs" text-anchor="end" >50.8</text>
+<text x="852.0" y="408.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="320.0" y="430.0" class="ink s" text-anchor="end" >P/D FP8 KV, c256</text>
+<line x1="402.2" y1="426.0" x2="759.1" y2="426.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="418.0" x2="759.1" y2="434.0" class="sm" stroke-width="2.2" />
+<circle cx="402.2" cy="426.0" r="5.5" class="c1 s1" stroke-width="2"/>
+<text x="392.2" y="419.0" class="ink xs" text-anchor="end" >39.9</text>
+<text x="852.0" y="430.0" class="mut s" text-anchor="start" >0.90</text>
+<text x="320.0" y="452.0" class="ink s" text-anchor="end" >DP8+EP8 internal balancer, c256</text>
+<line x1="385.2" y1="448.0" x2="759.1" y2="448.0" class="axis" stroke-width="3" stroke-opacity=".35"/>
+<line x1="759.1" y1="440.0" x2="759.1" y2="456.0" class="sm" stroke-width="2.2" />
+<circle cx="385.2" cy="448.0" r="5.5" class="hollow s2" stroke-width="2"/>
+<text x="375.2" y="441.0" class="ink xs" text-anchor="end" >37.6</text>
+<text x="852.0" y="452.0" class="mut s" text-anchor="start" >1.00</text>
+<text x="24.0" y="504.0" class="faint xs" text-anchor="start" >TRT-LLM counts reused 64-token blocks, vLLM counts tokens; P/D pools the prefill and decode workers' counters. Single runs.</text>
+<text x="24.0" y="520.0" class="faint xs" text-anchor="start" >Qwen3-235B-A22B-Instruct-2507 FP8 | one node, 8x H100 SXM5 | Dynamo 1.6.0 | single run per point.</text>
+</svg>

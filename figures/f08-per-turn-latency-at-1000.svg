@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" role="img" aria-labelledby="title desc">
+<title id="title">TTFT p90 and ITL p90 by turn index at 1,000 concurrent sessions</title>
+<desc id="desc">Two panels by turn index within a session (0-based). TTFT p90 climbs turn after turn on both configurations and never levels off; the runs stopped at their time cap after turn 4 (TP8 BF16) and turn 5 (TP8+EP8 FP8), so whole-run percentiles at 1,000 sessions are lower bounds. ITL p90 stays between 182 and 279 ms on every turn, several times the 50 ms SLO.</desc>
+<!--
+Data sources (every number in this figure is read from these files):
+  data/vllm-tp8-matrix/AG-c1000-t8/records.jsonl.gz (per-turn p90, nearest rank)
+  data/vllm-tp8ep8-fp8kv/AG-c1000-t8/records.jsonl.gz (per-turn p90, nearest rank)
+-->
+<style>
+  .bg{fill:#fcfcfb} .ink{fill:#16161a} .mut{fill:#55544f} .faint{fill:#8a8985}
+  .pan{fill:#f3f3f0;stroke:#d6d5cd} .grid{stroke:#e3e2db} .axis{stroke:#8a8985} .emp{fill:#fcfcfb;stroke:#c3c2b7}
+  .c1{fill:#2a78d6} .c2{fill:#eb6834} .c3{fill:#1baf7a} .c4{fill:#6250d6} .cr{fill:#d03b3b} .cg{fill:#0f8a3c} .cy{fill:#eda100}
+  .s1{stroke:#2a78d6} .s2{stroke:#eb6834} .s3{stroke:#1baf7a} .s4{stroke:#6250d6} .sr{stroke:#d03b3b} .sg{stroke:#0f8a3c} .sy{stroke:#eda100}
+  .sm{stroke:#55544f} .w{fill:#ffffff} .hollow{fill:#fcfcfb}
+  .halo{paint-order:stroke;stroke:#fcfcfb;stroke-width:4px;stroke-linejoin:round}
+  .band{fill:#6250d6;fill-opacity:.14} .ok{fill:#0f8a3c;fill-opacity:.08}
+  text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .t{font-size:18px;font-weight:600} .h{font-size:14px;font-weight:600} .s{font-size:12px} .xs{font-size:11.5px}
+  .big{font-size:22px;font-weight:700} .b{font-weight:600}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#0d1117} .ink{fill:#ececea} .mut{fill:#a8a7a3} .faint{fill:#7d7c78}
+    .pan{fill:#161b22;stroke:#30363d} .grid{stroke:#262c34} .axis{stroke:#6e7681} .emp{fill:#0d1117;stroke:#3a3f47}
+    .c1{fill:#4a90e8} .c2{fill:#f07a4a} .c3{fill:#2bc48e} .c4{fill:#9085e9} .cr{fill:#ef6b6b} .cg{fill:#3fb950} .cy{fill:#f2b53a}
+    .s1{stroke:#4a90e8} .s2{stroke:#f07a4a} .s3{stroke:#2bc48e} .s4{stroke:#9085e9} .sr{stroke:#ef6b6b} .sg{stroke:#3fb950} .sy{stroke:#f2b53a}
+    .sm{stroke:#a8a7a3} .hollow{fill:#0d1117} .halo{stroke:#0d1117} .band{fill:#9085e9;fill-opacity:.20} .ok{fill:#3fb950;fill-opacity:.10}
+  }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="440"/>
+<text x="24.0" y="32.0" class="ink t" text-anchor="start" >At 1,000 sessions latency is still climbing when the run ends</text>
+<text x="24.0" y="52.0" class="mut" text-anchor="start" >p90 per turn index. Each later turn carries more history and waits longer; turns 6 and later were never reached.</text>
+<text x="80.0" y="86.0" class="ink h" text-anchor="start" >TTFT p90 (s)</text>
+<rect x="325.5" y="100.0" width="114.5" height="230.0" rx="0" class="pan" />
+<text x="382.7" y="215.0" class="mut s" text-anchor="middle" >not reached</text>
+<line x1="80.0" y1="330.0" x2="440.0" y2="330.0" class="grid" stroke-width="1.0" />
+<text x="74.0" y="334.0" class="mut s" text-anchor="end" >0</text>
+<line x1="80.0" y1="285.8" x2="440.0" y2="285.8" class="grid" stroke-width="1.0" />
+<text x="74.0" y="289.8" class="mut s" text-anchor="end" >25</text>
+<line x1="80.0" y1="241.5" x2="440.0" y2="241.5" class="grid" stroke-width="1.0" />
+<text x="74.0" y="245.5" class="mut s" text-anchor="end" >50</text>
+<line x1="80.0" y1="197.3" x2="440.0" y2="197.3" class="grid" stroke-width="1.0" />
+<text x="74.0" y="201.3" class="mut s" text-anchor="end" >75</text>
+<line x1="80.0" y1="153.1" x2="440.0" y2="153.1" class="grid" stroke-width="1.0" />
+<text x="74.0" y="157.1" class="mut s" text-anchor="end" >100</text>
+<line x1="80.0" y1="108.8" x2="440.0" y2="108.8" class="grid" stroke-width="1.0" />
+<text x="74.0" y="112.8" class="mut s" text-anchor="end" >125</text>
+<text x="96.4" y="348.0" class="mut s" text-anchor="middle" >t0</text>
+<text x="137.3" y="348.0" class="mut s" text-anchor="middle" >t1</text>
+<text x="178.2" y="348.0" class="mut s" text-anchor="middle" >t2</text>
+<text x="219.1" y="348.0" class="mut s" text-anchor="middle" >t3</text>
+<text x="260.0" y="348.0" class="mut s" text-anchor="middle" >t4</text>
+<text x="300.9" y="348.0" class="mut s" text-anchor="middle" >t5</text>
+<text x="341.8" y="348.0" class="mut s" text-anchor="middle" >t6</text>
+<text x="382.7" y="348.0" class="mut s" text-anchor="middle" >t7</text>
+<text x="423.6" y="348.0" class="mut s" text-anchor="middle" >t8</text>
+<line x1="80.0" y1="330.0" x2="440.0" y2="330.0" class="axis" stroke-width="1.0" />
+<line x1="80.0" y1="326.5" x2="440.0" y2="326.5" class="sr" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="436.0" y="321.5" class="cr s" text-anchor="end" >SLO 2 s</text>
+<polyline fill="none" stroke-width="1.8" class="s1" points="96.4,287.9 137.3,238.6 178.2,201.3 219.1,139.3 260.0,121.0"/>
+<circle cx="96.4" cy="287.9" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="137.3" cy="238.6" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="178.2" cy="201.3" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="219.1" cy="139.3" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="260.0" cy="121.0" r="5" class="hollow s1" stroke-width="2"/>
+<polyline fill="none" stroke-width="1.8" class="s3" points="96.4,300.2 137.3,315.2 178.2,253.5 219.1,234.6 260.0,195.3 300.9,181.5"/>
+<path d="M96.4,294.4 L102.1,304.8 L90.6,304.8 Z" class="hollow s3" stroke-width="2"/>
+<path d="M137.3,309.4 L143.0,319.8 L131.5,319.8 Z" class="hollow s3" stroke-width="2"/>
+<path d="M178.2,247.8 L183.9,258.1 L172.4,258.1 Z" class="hollow s3" stroke-width="2"/>
+<path d="M219.1,228.8 L224.8,239.2 L213.3,239.2 Z" class="hollow s3" stroke-width="2"/>
+<path d="M260.0,189.5 L265.8,199.9 L254.2,199.9 Z" class="hollow s3" stroke-width="2"/>
+<path d="M300.9,175.8 L306.7,186.1 L295.2,186.1 Z" class="hollow s3" stroke-width="2"/>
+<text x="260.0" y="366.0" class="mut s" text-anchor="middle" >turn index within a session</text>
+<text x="560.0" y="86.0" class="ink h" text-anchor="start" >ITL p90 (ms)</text>
+<rect x="805.5" y="100.0" width="114.5" height="230.0" rx="0" class="pan" />
+<text x="862.7" y="215.0" class="mut s" text-anchor="middle" >not reached</text>
+<line x1="560.0" y1="330.0" x2="920.0" y2="330.0" class="grid" stroke-width="1.0" />
+<text x="554.0" y="334.0" class="mut s" text-anchor="end" >0</text>
+<line x1="560.0" y1="294.1" x2="920.0" y2="294.1" class="grid" stroke-width="1.0" />
+<text x="554.0" y="298.1" class="mut s" text-anchor="end" >50</text>
+<line x1="560.0" y1="258.1" x2="920.0" y2="258.1" class="grid" stroke-width="1.0" />
+<text x="554.0" y="262.1" class="mut s" text-anchor="end" >100</text>
+<line x1="560.0" y1="186.2" x2="920.0" y2="186.2" class="grid" stroke-width="1.0" />
+<text x="554.0" y="190.2" class="mut s" text-anchor="end" >200</text>
+<line x1="560.0" y1="114.4" x2="920.0" y2="114.4" class="grid" stroke-width="1.0" />
+<text x="554.0" y="118.4" class="mut s" text-anchor="end" >300</text>
+<text x="576.4" y="348.0" class="mut s" text-anchor="middle" >t0</text>
+<text x="617.3" y="348.0" class="mut s" text-anchor="middle" >t1</text>
+<text x="658.2" y="348.0" class="mut s" text-anchor="middle" >t2</text>
+<text x="699.1" y="348.0" class="mut s" text-anchor="middle" >t3</text>
+<text x="740.0" y="348.0" class="mut s" text-anchor="middle" >t4</text>
+<text x="780.9" y="348.0" class="mut s" text-anchor="middle" >t5</text>
+<text x="821.8" y="348.0" class="mut s" text-anchor="middle" >t6</text>
+<text x="862.7" y="348.0" class="mut s" text-anchor="middle" >t7</text>
+<text x="903.6" y="348.0" class="mut s" text-anchor="middle" >t8</text>
+<line x1="560.0" y1="330.0" x2="920.0" y2="330.0" class="axis" stroke-width="1.0" />
+<line x1="560.0" y1="294.1" x2="920.0" y2="294.1" class="sr" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="916.0" y="289.1" class="cr s" text-anchor="end" >SLO 50 ms</text>
+<polyline fill="none" stroke-width="1.8" class="s1" points="576.4,160.9 617.3,139.1 658.2,150.5 699.1,172.8 740.0,173.0"/>
+<circle cx="576.4" cy="160.9" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="617.3" cy="139.1" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="658.2" cy="150.5" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="699.1" cy="172.8" r="5" class="hollow s1" stroke-width="2"/>
+<circle cx="740.0" cy="173.0" r="5" class="hollow s1" stroke-width="2"/>
+<polyline fill="none" stroke-width="1.8" class="s3" points="576.4,198.9 617.3,185.2 658.2,130.9 699.1,129.7 740.0,129.8 780.9,172.4"/>
+<path d="M576.4,193.1 L582.1,203.5 L570.6,203.5 Z" class="hollow s3" stroke-width="2"/>
+<path d="M617.3,179.5 L623.0,189.8 L611.5,189.8 Z" class="hollow s3" stroke-width="2"/>
+<path d="M658.2,125.2 L663.9,135.5 L652.4,135.5 Z" class="hollow s3" stroke-width="2"/>
+<path d="M699.1,124.0 L704.8,134.3 L693.3,134.3 Z" class="hollow s3" stroke-width="2"/>
+<path d="M740.0,124.0 L745.8,134.4 L734.2,134.4 Z" class="hollow s3" stroke-width="2"/>
+<path d="M780.9,166.6 L786.7,177.0 L775.2,177.0 Z" class="hollow s3" stroke-width="2"/>
+<text x="740.0" y="366.0" class="mut s" text-anchor="middle" >turn index within a session</text>
+<circle cx="86.0" cy="386.0" r="5" class="hollow s1" stroke-width="2"/>
+<text x="98.0" y="390.0" class="ink s" text-anchor="start" >TP8, BF16 KV: 4,122 of 8,550 planned turns ran</text>
+<path d="M486.0,380.2 L491.8,390.6 L480.2,390.6 Z" class="hollow s3" stroke-width="2"/>
+<text x="498.0" y="390.0" class="ink s" text-anchor="start" >TP8+EP8, FP8 KV: 5,246 of 8,550 planned turns ran</text>
+<text x="24.0" y="412.0" class="faint xs" text-anchor="start" >The two runs differ in layout and KV dtype. Hollow = run stopped at its time cap.</text>
+<text x="24.0" y="428.0" class="faint xs" text-anchor="start" >Qwen3-235B-A22B-Instruct-2507 FP8 | one node, 8x H100 SXM5 | Dynamo 1.6.0 | single run per point.</text>
+</svg>
