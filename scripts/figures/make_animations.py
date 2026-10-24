@@ -12,6 +12,7 @@ Conventions:
 - Headline percentile is p90: TTFT p90, ITL p90, tok/s per user = 1000 / ITL p90.
 """
 import json
+import math
 from svglib import CSS, MOTION_CSS, DATA, FIG, P, points, records, pct, esc, T, R, L, C, marker, fmt_ms
 
 W, H = 960, 540
@@ -347,14 +348,17 @@ def a05():
     a.add(R(40, 428, 12, 12, "c4", 2), T(58, 438, "shared prompt", "mut s"), R(150, 428, 12, 12, "c1", 2), T(168, 438, "history", "mut s"),
           R(230, 428, 12, 12, "c3", 2), T(248, 438, "new input (600)", "mut s"))
     # right: two mini charts
-    def chart(y0, h, key, title, hi, ticks, slo, fmt):
+    def chart(y0, h, key, title, lo, hi, ticks, slo, slo_lab, fmt):
+        # log y: the target line sits in the readable middle instead of under the markers at the bottom
         x0, x1 = 500, 910
         xs2 = lambda t: x0 + t / 8 * (x1 - x0)
-        ys2 = lambda v: y0 + h - min(v, hi) / hi * h
+        ys2 = lambda v: y0 + h - (math.log(min(max(v, lo), hi)) - math.log(lo)) / (math.log(hi) - math.log(lo)) * h
         a.add(T(x0 - 30, y0 - 10, title, "ink h"))
+        a.add(R(x0, ys2(slo), x1 - x0, y0 + h - ys2(slo), "ok", 0))
         for tk in ticks:
             a.add(L(x0, ys2(tk), x1, ys2(tk), "grid"), T(x0 - 6, ys2(tk) + 4, fmt(tk), "mut s", "end"))
         a.add(L(x0, ys2(slo), x1, ys2(slo), "sr", 1.4, 'stroke-dasharray="5 4"'))
+        a.add(T(x1 - 6, y0 + h - 6, f"in target: {slo_lab}", "cr xs", "end"))
         a.add(L(x0, y0 + h, x1, y0 + h))
         for t in range(9):
             a.add(T(xs2(t), y0 + h + 15, f"t{t}", "mut xs", "middle"))
@@ -368,11 +372,12 @@ def a05():
                     lab = T(xs2(t), ys2(v) - 10, fmt_ms(v) if key == "ttft90" else f"{v:.0f} ms", "ink xs b halo", "middle")
                 a.show([(t0, 100)], seg + marker(shp, xs2(t), ys2(v), col, size=4.5) + lab)
                 prev = (xs2(t), ys2(v))
-    chart(100, 118, "ttft90", "TTFT p90 (s)", 32000, [0, 10000, 20000, 30000], 2000, lambda v: f"{v / 1000:.0f}")
-    chart(276, 118, "itl90", "ITL p90 (ms)", 190, [0, 50, 100, 150], 50, lambda v: f"{v:.0f}")
+    chart(100, 118, "ttft90", "TTFT p90 (s, log scale)", 1000, 40000, [1000, 2000, 5000, 10000, 30000], 2000, "\u2264 2 s",
+          lambda v: f"{v / 1000:.0f}")
+    chart(276, 118, "itl90", "ITL p90 (ms, log scale)", 20, 250, [20, 50, 100, 200], 50, "\u2264 50 ms", lambda v: f"{v:.0f}")
     a.add(marker("s", 476, 428, 2, size=5), T(486, 432, f"BF16 KV, {pb / 1e6:.2f}M-token pool", "ink s"),
           marker("^", 676, 428, 3, size=5), T(686, 432, f"FP8 KV, {pf / 1e6:.2f}M-token pool", "ink s"))
-    a.add(L(470, 448, 496, 448, "sr", 1.4, 'stroke-dasharray="5 4"'), T(502, 452, "SLO: TTFT 2 s, ITL 50 ms", "mut s"))
+    a.add(L(470, 448, 496, 448, "sr", 1.4, 'stroke-dasharray="5 4"'), T(502, 452, "target (SLO); shaded = in target", "mut s"))
     kb_max, kf_max = P(kb)["kv_max"], P(kf)["kv_max"]
     a.show([(90, 100)], T(24, 482, f"Measured KV peak: {kb_max:.2f} of the BF16 pool (it filled), {kf_max:.2f} of the FP8 pool (it never filled). "
                                    f"Same layout, same 2,208 turns.", "ink"))
